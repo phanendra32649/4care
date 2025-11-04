@@ -253,7 +253,7 @@ section.active {display:flex;}
     <div class="card">
       <h2>💌 Daily Note</h2>
       <input type="date" id="dailyDate"/>
-      <textarea id="dailyText" placeholder="Ivala emaindho ikkada rasko....."></textarea>
+      <textarea id="dailyText" placeholder="Ivala emaindhi Nanna ki cheppuko ikkadaa..."></textarea>
       <select id="dailyMood">
         <option value="">Mood</option>
         <option>🥰 Happy</option>
@@ -374,7 +374,7 @@ async function saveHealth(){
   const date=new Date().toISOString().slice(0,10);
   const feeling=document.getElementById("feeling").value;
   const sleep=parseFloat(document.getElementById("sleep").value||0);
-  const appetite=document.getElementById("appetite").value;
+  const appetite=document.getElementById("Tinnava").value;
   const symptoms=[...document.querySelectorAll("#symptomsBox input:checked")].map(cb=>cb.value);
   await postData({date,feeling,sleep,appetite,symptoms,section:"health"});
   const tips=[];
