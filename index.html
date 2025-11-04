@@ -1,81 +1,241 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
 <title>💖 Pookie’s Lovely Moments 💖</title>
-<link rel="manifest" href="manifest.json"/>
-<meta name="theme-color" content="#ff9ecd"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+<meta name="theme-color" content="#ff9ecd" />
 <style>
-:root{
+:root {
   --pink:#ff9ecd;--deep-pink:#f472b6;--purple:#c084fc;
   --light-pink:#ffd5ec;--bg:#fff0f6;--text:#4a154b;
   --radius:18px;--shadow:0 8px 24px rgba(255,150,200,.25);
 }
-body{margin:0;font-family:'Poppins',sans-serif;background:radial-gradient(circle at top left,var(--light-pink),var(--bg));color:var(--text);min-height:100vh;display:flex;flex-direction:column;}
-header{background:linear-gradient(90deg,var(--pink),var(--purple));color:#fff;text-align:center;padding:1rem;font-weight:700;box-shadow:var(--shadow);}
-nav{display:flex;justify-content:space-around;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.08);position:sticky;top:0;z-index:10;}
-nav button{flex:1;border:none;background:none;padding:.8rem 0;font-weight:600;color:var(--text);cursor:pointer;}
-nav button.active{color:#fff;background:linear-gradient(90deg,var(--pink),var(--deep-pink));}
-main{flex:1;max-width:720px;margin:auto;padding:1rem;display:flex;flex-direction:column;gap:1rem;}
-.card{background:#fff;border-radius:var(--radius);padding:1.2rem;box-shadow:var(--shadow);}
-input,textarea,select,button{width:100%;padding:.8rem 1rem;margin-top:.4rem;border-radius:10px;border:1px solid var(--light-pink);font-family:inherit;font-size:1rem;}
-input:focus,textarea:focus,select:focus{border-color:var(--pink);box-shadow:0 0 6px var(--pink);}
-button.save{background:linear-gradient(90deg,var(--pink),var(--deep-pink));color:#fff;border:none;font-weight:600;margin-top:.8rem;}
-.footer{text-align:center;color:var(--deep-pink);padding:1rem 0;font-size:.9rem;}
-section{display:none;flex-direction:column;gap:1rem;}
-section.active{display:flex;}
-#symptomsBox{display:flex;flex-wrap:wrap;gap:.5rem;}
-#symptomsBox label{background:#ffe8f3;border-radius:8px;padding:4px 10px;}
-.tip{margin-top:.6rem;color:var(--deep-pink);font-weight:500;}
-@keyframes flash{0%{background:var(--light-pink);}100%{background:transparent;}}
-.tip-flash{animation:flash 1s ease;}
-@media(max-width:600px){header{font-size:1.1rem;}textarea{min-height:120px;}}
+*{box-sizing:border-box;}
+body {
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:radial-gradient(circle at top left,var(--light-pink),var(--bg));
+  color:var(--text);
+  display:flex;
+  flex-direction:column;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* 🌸 Floating Hearts Background */
+.hearts {
+  position:fixed;
+  top:0; left:0;
+  width:100%;
+  height:100%;
+  z-index:-1;
+  overflow:hidden;
+}
+.heart {
+  position:absolute;
+  bottom:-10%;
+  color:#ff9ecd;
+  opacity:0.4;
+  animation:floatHearts 10s linear infinite;
+  font-size:1.5rem;
+}
+@keyframes floatHearts {
+  0% {transform:translateY(0) rotate(0deg); opacity:0.5;}
+  50% {opacity:1;}
+  100% {transform:translateY(-110vh) rotate(360deg); opacity:0;}
+}
+
+/* 🌈 General Layout */
+header {
+  background:linear-gradient(90deg,var(--pink),var(--purple));
+  color:#fff;
+  text-align:center;
+  padding:1rem;
+  font-weight:700;
+  box-shadow:var(--shadow);
+  font-size:1.3rem;
+  animation:fadeIn 1.5s ease;
+}
+nav {
+  display:flex;
+  justify-content:space-around;
+  background:#fff;
+  box-shadow:0 2px 6px rgba(0,0,0,.08);
+  position:sticky;
+  top:0;
+  z-index:10;
+  flex-wrap:wrap;
+  animation:slideIn 1s ease;
+}
+nav button {
+  flex:1;
+  border:none;
+  background:none;
+  padding:.9rem 0;
+  font-weight:600;
+  color:var(--text);
+  cursor:pointer;
+  transition:background .3s,color .3s,transform .2s;
+}
+nav button.active {
+  color:#fff;
+  background:linear-gradient(90deg,var(--pink),var(--deep-pink));
+  transform:scale(1.05);
+}
+main {
+  flex:1;
+  width:100%;
+  max-width:900px;
+  margin:auto;
+  padding:1rem;
+  display:flex;
+  flex-direction:column;
+  gap:1.2rem;
+  animation:fadeUp 1.5s ease;
+}
+.card {
+  background:#fff;
+  border-radius:var(--radius);
+  padding:1.2rem;
+  box-shadow:var(--shadow);
+  animation:popIn 1.2s ease;
+}
+input,textarea,select,button {
+  width:100%;
+  padding:.8rem 1rem;
+  margin-top:.4rem;
+  border-radius:10px;
+  border:1px solid var(--light-pink);
+  font-family:inherit;
+  font-size:1rem;
+}
+input:focus,textarea:focus,select:focus {
+  border-color:var(--pink);
+  box-shadow:0 0 6px var(--pink);
+}
+button.save {
+  background:linear-gradient(90deg,var(--pink),var(--deep-pink));
+  color:#fff;
+  border:none;
+  font-weight:600;
+  margin-top:.8rem;
+  cursor:pointer;
+  transition:transform .2s,box-shadow .3s;
+}
+button.save:hover {
+  transform:scale(1.05);
+  box-shadow:0 0 10px rgba(255,150,200,0.5);
+}
+section {display:none;flex-direction:column;gap:1rem;}
+section.active {display:flex;}
+#symptomsBox {display:flex;flex-wrap:wrap;gap:.5rem;}
+#symptomsBox label {
+  background:#ffe8f3;
+  border-radius:8px;
+  padding:4px 10px;
+}
+.tip {
+  margin-top:.6rem;
+  color:var(--deep-pink);
+  font-weight:500;
+  animation:fadeIn 1.5s ease;
+}
+.footer {
+  background:linear-gradient(90deg,var(--pink),var(--purple));
+  color:#fff;
+  text-align:center;
+  padding:1.5rem .5rem;
+  font-size:1rem;
+  box-shadow:0 -2px 8px rgba(255,150,200,.3);
+  animation:fadeIn 2s ease;
+}
+.footer span {display:block;font-size:.85rem;opacity:0.9;margin-top:4px;}
+
+/* 🌸 Animations */
+@keyframes fadeIn {
+  from {opacity:0; transform:translateY(10px);}
+  to {opacity:1; transform:translateY(0);}
+}
+@keyframes slideIn {
+  from {opacity:0; transform:translateY(-20px);}
+  to {opacity:1; transform:translateY(0);}
+}
+@keyframes fadeUp {
+  from {opacity:0; transform:translateY(20px);}
+  to {opacity:1; transform:translateY(0);}
+}
+@keyframes popIn {
+  from {opacity:0; transform:scale(0.9);}
+  to {opacity:1; transform:scale(1);}
+}
+
+@media(max-width:768px){
+  header{font-size:1.1rem;}
+  main{padding:.8rem;}
+  textarea{min-height:120px;}
+  nav button{font-size:.9rem;}
+}
+@media(max-width:480px){
+  nav{flex-direction:column;}
+  nav button{border-bottom:1px solid var(--light-pink);}
+  .card{padding:1rem;}
+}
 </style>
 </head>
 <body>
+
+<!-- 💕 Floating hearts -->
+<div class="hearts" id="hearts"></div>
+
 <header>💞 Pookie’s Lovely Moments 💞</header>
 
+<!-- LOGIN -->
 <div id="loginCard" class="card" style="max-width:380px;margin:2rem auto;">
   <h2 style="text-align:center;">Login</h2>
-  <input id="username" placeholder="Username"/>
-  <input id="password" type="password" placeholder="Password"/>
+  <input id="username" placeholder="Username" />
+  <input id="password" type="password" placeholder="Password" />
   <button onclick="login()">Login 💕</button>
   <p id="loginMsg" style="color:var(--deep-pink);text-align:center;"></p>
 </div>
 
-<nav id="tabs" style="display:none">
-  <button data-tab="home" class="active">Home</button>
-  <button data-tab="daily">Daily</button>
-  <button data-tab="health">Health</button>
-  <button data-tab="water">Water</button>
+<!-- NAV -->
+<nav id="tabs" style="display:none;">
+  <button data-tab="home" class="active">🌅 Home</button>
+  <button data-tab="daily">💌 Daily</button>
+  <button data-tab="health">🩺 Health</button>
+  <button data-tab="water">💧 Water</button>
 </nav>
 
-<main id="app" style="display:none">
+<!-- MAIN -->
+<main id="app" style="display:none;">
   <!-- HOME -->
   <section id="home" class="active">
-    <div class="card" id="greetCard">
-      <h2 id="greetText">Good day 💖</h2>
-      <p>Welcome back, my lovely Pookie!</p>
+    <div class="card">
+      <h2 id="greetText">🌸 Good Day!</h2>
+      <p>Welcome back, my lovely Pookie 💖</p>
     </div>
-    <div class="card" id="summaryCard">
-      <h3>Today’s Summary 🌸</h3>
+    <div class="card">
+      <h3>Today’s Summary 🌈</h3>
       <p id="sumText">Loading...</p>
     </div>
   </section>
 
-  <!-- DAILY NOTE -->
+  <!-- DAILY -->
   <section id="daily">
     <div class="card">
       <h2>💌 Daily Note</h2>
       <input type="date" id="dailyDate"/>
-      <textarea id="dailyText" placeholder="Write your thoughts or message..."></textarea>
+      <textarea id="dailyText" placeholder="Write something lovely..."></textarea>
       <select id="dailyMood">
-        <option value="">Mood?</option><option>🥰 Happy</option><option>😴 Sleepy</option><option>😇 Peaceful</option><option>🤒 Not well</option><option>🤩 Excited</option>
+        <option value="">Mood?</option>
+        <option>🥰 Happy</option>
+        <option>😴 Sleepy</option>
+        <option>😇 Peaceful</option>
+        <option>🤒 Not well</option>
+        <option>🤩 Excited</option>
       </select>
-      <button class="save" onclick="saveDaily()">Save Note 💖</button>
+      <button class="save" onclick="saveDaily()">Save 💖</button>
     </div>
   </section>
 
@@ -83,13 +243,25 @@ section.active{display:flex;}
   <section id="health">
     <div class="card">
       <h2>🩺 Health Tracker</h2>
-      <label>Feeling</label>
-      <select id="feeling"><option value="">Select</option><option>Fine</option><option>Tired</option><option>Sick</option><option>Cramps</option><option>Headache</option></select>
-      <label>Sleep (hours)</label>
+      <label>😊 Feeling</label>
+      <select id="feeling">
+        <option value="">Select</option>
+        <option>Fine</option>
+        <option>Tired</option>
+        <option>Sick</option>
+        <option>Cramps</option>
+        <option>Headache</option>
+      </select>
+      <label>😴 Sleep (hours)</label>
       <input type="number" id="sleep" min="0" max="24" placeholder="e.g. 7"/>
-      <label>Appetite</label>
-      <select id="appetite"><option value="">Select</option><option>Low</option><option>Normal</option><option>High</option></select>
-      <label>Symptoms</label>
+      <label>🍽️ Appetite</label>
+      <select id="appetite">
+        <option value="">Select</option>
+        <option>Low</option>
+        <option>Normal</option>
+        <option>High</option>
+      </select>
+      <label>💭 Symptoms</label>
       <div id="symptomsBox">
         <label><input type="checkbox" value="Cramps">Cramps</label>
         <label><input type="checkbox" value="Headache">Headache</label>
@@ -97,7 +269,7 @@ section.active{display:flex;}
         <label><input type="checkbox" value="Stress">Stress</label>
         <label><input type="checkbox" value="Back pain">Back pain</label>
       </div>
-      <button class="save" onclick="saveHealth()">Save Health 💕</button>
+      <button class="save" onclick="saveHealth()">Save 🩷</button>
       <div id="healthTip" class="tip"></div>
     </div>
   </section>
@@ -105,21 +277,22 @@ section.active{display:flex;}
   <!-- WATER -->
   <section id="water">
     <div class="card">
-      <h2>💧 Water Intake</h2>
+      <h2>💧 Water Tracker</h2>
       <input type="number" id="waterCups" min="0" max="20" placeholder="e.g. 8"/>
-      <button class="save" onclick="saveWater()">Save Water 💧</button>
+      <button class="save" onclick="saveWater()">Save 💧</button>
       <div id="waterTip" class="tip"></div>
     </div>
   </section>
 </main>
 
-<div class="footer">Made with 💗 just for my favorite girl 💋</div>
+<footer class="footer">
+  💗 Made with endless love for my favorite girl 💋
+  <span>© 2025 Pookie’s Lovely Moments</span>
+</footer>
 
 <script>
-if('serviceWorker' in navigator){navigator.serviceWorker.register('service-worker.js');}
-
 const API="https://fourcare.onrender.com/memories";
-const allowedUsers={8367226322:"Chinnu@19",admin:"admin19"};
+const allowedUsers={"8367226377":"Chinnu19","admin":"admin19"};
 let loggedIn=false;
 
 function login(){
@@ -132,35 +305,34 @@ function login(){
     document.getElementById("app").style.display="block";
     setGreeting();
     loadSummary();
-  }else document.getElementById("loginMsg").textContent="Invalid login 💔";
+  } else {
+    document.getElementById("loginMsg").textContent="Invalid login 💔";
+  }
 }
 
-// tabs
-document.querySelectorAll('nav button').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
+document.querySelectorAll("nav button").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
     const tab=btn.dataset.tab;
-    document.querySelectorAll('main section').forEach(sec=>sec.classList.remove('active'));
-    document.getElementById(tab).classList.add('active');
+    document.querySelectorAll("main section").forEach(sec=>sec.classList.remove("active"));
+    document.getElementById(tab).classList.add("active");
   });
 });
 
 function setGreeting(){
   const h=new Date().getHours();
   let text="Hello, beautiful 💕";
-  if(h<12) text="Good Morning ☀️ Pookie!";
-  else if(h<18) text="Good Afternoon 🌸 Pookie!";
-  else text="Good Evening 🌙 Pookie!";
+  if(h<12) text="☀️ Good Morning Pookie!";
+  else if(h<18) text="🌸 Good Afternoon Pookie!";
+  else text="🌙 Good Evening Pookie!";
   document.getElementById("greetText").textContent=text;
 }
 
-// --- POST helper
 async function postData(data){
   await fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});
 }
 
-// --- Save Daily
 async function saveDaily(){
   const date=document.getElementById("dailyDate").value||new Date().toISOString().slice(0,10);
   const text=document.getElementById("dailyText").value.trim();
@@ -173,7 +345,6 @@ async function saveDaily(){
   loadSummary();
 }
 
-// --- Save Health + Suggestions
 async function saveHealth(){
   const date=new Date().toISOString().slice(0,10);
   const feeling=document.getElementById("feeling").value;
@@ -187,17 +358,13 @@ async function saveHealth(){
   if(feeling==="Tired"||feeling==="Cramps")tips.push("Gentle stretching or warm tea might help 💕");
   if(appetite==="Low")tips.push("Eat small healthy meals today 🍎");
   if(symptoms.includes("Stress"))tips.push("Take deep breaths and relax, Pookie 🌼");
-  const tip=document.getElementById("healthTip");
-  tip.textContent=tips.join(" ");
-  tip.classList.add("tip-flash");
-  setTimeout(()=>tip.classList.remove("tip-flash"),1000);
+  document.getElementById("healthTip").textContent=tips.join(" ");
   document.querySelectorAll("#health input,#health select").forEach(el=>{
     if(el.type==="checkbox")el.checked=false;else el.value="";
   });
   loadSummary();
 }
 
-// --- Save Water + Suggestions
 async function saveWater(){
   const date=new Date().toISOString().slice(0,10);
   const water=parseFloat(document.getElementById("waterCups").value||0);
@@ -207,13 +374,10 @@ async function saveWater(){
   if(water<6)tip.textContent="Drink a bit more water to stay hydrated 💧";
   else if(water>=8)tip.textContent="Perfect hydration! 🥰";
   else tip.textContent="Good job! Keep sipping through the day 💧";
-  tip.classList.add("tip-flash");
-  setTimeout(()=>tip.classList.remove("tip-flash"),1000);
   document.getElementById("waterCups").value="";
   loadSummary();
 }
 
-// --- Load Summary for Home
 async function loadSummary(){
   try{
     const res=await fetch(API);
@@ -232,7 +396,21 @@ async function loadSummary(){
       if(w&&w.water)text+=`Water: ${w.water} cups`;
     }
     document.getElementById("sumText").textContent=text;
-  }catch(e){document.getElementById("sumText").textContent="Can't load summary";console.log(e);}
+  }catch(e){
+    document.getElementById("sumText").textContent="Can't load summary 😢";
+  }
+}
+
+/* Floating hearts generator */
+const heartsContainer=document.getElementById("hearts");
+for(let i=0;i<20;i++){
+  const heart=document.createElement("div");
+  heart.classList.add("heart");
+  heart.textContent="💖";
+  heart.style.left=Math.random()*100+"%";
+  heart.style.animationDuration=8+Math.random()*8+"s";
+  heart.style.fontSize=1+Math.random()*1.5+"rem";
+  heartsContainer.appendChild(heart);
 }
 </script>
 </body>
