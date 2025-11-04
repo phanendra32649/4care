@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-<title>💖 Pookie’s Lovely Moments 💖</title>
+<title>💖 Daily Tracker 💖</title>
 <meta name="theme-color" content="#ff9ecd" />
 <style>
 :root {
@@ -188,14 +188,14 @@ section.active {display:flex;}
 <!-- 💕 Floating hearts -->
 <div class="hearts" id="hearts"></div>
 
-<header>💞 Pookie’s Lovely Moments 💞</header>
+<header>💞 Daily Tracker 💞</header>
 
 <!-- LOGIN -->
 <div id="loginCard" class="card" style="max-width:380px;margin:2rem auto;">
   <h2 style="text-align:center;">Login</h2>
   <input id="username" placeholder="Username" />
   <input id="password" type="password" placeholder="Password" />
-  <button onclick="login()">Login 💕</button>
+  <button onclick="login()">Login</button>
   <p id="loginMsg" style="color:var(--deep-pink);text-align:center;"></p>
 </div>
 
@@ -213,7 +213,7 @@ section.active {display:flex;}
   <section id="home" class="active">
     <div class="card">
       <h2 id="greetText">🌸 Good Day!</h2>
-      <p>Welcome back, my lovely Pookie 💖</p>
+      <p>Welcome back, Chinnuuuu 💖</p>
     </div>
     <div class="card">
       <h3>Today’s Summary 🌈</h3>
@@ -286,8 +286,8 @@ section.active {display:flex;}
 </main>
 
 <footer class="footer">
-  💗 Made with endless love for my favorite girl 💋
-  <span>© 2025 Pookie’s Lovely Moments</span>
+  💗Made with Love n Care💗
+  <span>-Nannaa</span>
 </footer>
 
 <script>
@@ -322,10 +322,10 @@ document.querySelectorAll("nav button").forEach(btn=>{
 
 function setGreeting(){
   const h=new Date().getHours();
-  let text="Hello, beautiful 💕";
-  if(h<12) text="☀️ Good Morning Pookie!";
-  else if(h<18) text="🌸 Good Afternoon Pookie!";
-  else text="🌙 Good Evening Pookie!";
+  let text="Hello,💕";
+  if(h<12) text="☀️ Good Morning Chinnuu!";
+  else if(h<18) text="🌸 Good Afternoon Chinnuu!";
+  else text="🌙 Good Evening Chinnuu!";
   document.getElementById("greetText").textContent=text;
 }
 
