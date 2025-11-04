@@ -96,6 +96,7 @@ main {
   flex-direction:column;
   gap:1.2rem;
   animation:fadeUp 1.5s ease;
+  padding-bottom:80px !important; /* keeps content visible above footer */
 }
 .card {
   background:#fff;
@@ -153,18 +154,23 @@ section.active {display:flex;}
   display:flex;
   flex-direction:column;
   justify-content:center;
+  padding-bottom:80px !important; /* prevent overlap */
 }
 
-/* FOOTER FIXED TO BOTTOM */
+/* 🌟 FOOTER FIXED AT BOTTOM */
 .footer {
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
   background:linear-gradient(90deg,var(--pink),var(--purple));
   color:#fff;
   text-align:center;
-  padding:1rem .5rem;
+  padding:.9rem .5rem;
   font-size:1rem;
   box-shadow:0 -2px 8px rgba(255,150,200,.3);
-  animation:fadeIn 2s ease;
-  margin-top:auto;
+  animation:fadeIn 1s ease;
+  z-index:20;
 }
 .footer span {
   display:block;
@@ -194,7 +200,7 @@ section.active {display:flex;}
 /* MOBILE RESPONSIVE FIXES */
 @media(max-width:768px){
   header{font-size:1.1rem;}
-  main{padding:.8rem;}
+  main{padding:.8rem;padding-bottom:90px;}
   textarea{min-height:120px;}
   nav button{font-size:.9rem;}
 }
@@ -203,7 +209,6 @@ section.active {display:flex;}
   nav button{border-bottom:1px solid var(--light-pink);}
   .card{padding:1rem;}
   #loginCard{margin-top:3rem;margin-bottom:5rem;}
-  footer{position:relative;}
 }
 </style>
 </head>
