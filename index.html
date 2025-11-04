@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>💖 Pookie’s Lovely Moments 💖</title>
+  <meta name="theme-color" content="#ff9ecd" />
+  <style>
+    :root {
+      --pink: #ff9ecd;
+      --light-pink: #ffd5ec;
+      --purple: #c084fc;
+      --deep-pink: #f472b6;
+      --bg: #fff0f6;
+      --text: #4a154b;
+      --card-bg: #fff7fb;
+      --shadow: 0 10px 25px rgba(255, 150, 200, 0.25);
+      --radius: 20px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at top left, var(--light-pink), var(--bg));
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(90deg, var(--pink), var(--purple));
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      box-shadow: var(--shadow);
+    }
+
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo span.heart {
+      width: 26px;
+      height: 26px;
+      background: radial-gradient(circle, #ff99cc, #ff4da6);
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(255, 100, 180, 0.6);
+      animation: heartbeat 1.3s infinite;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      padding: 1.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      box-shadow: var(--shadow);
+    }
+
+    input, textarea, select, button {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border-radius: 12px;
+      border: 1px solid var(--light-pink);
+      font-family: inherit;
+      font-size: 1rem;
+      outline: none;
+      transition: 0.2s;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--pink);
+      box-shadow: 0 0 6px var(--pink);
+    }
+
+    button {
+      background: linear-gradient(90deg, var(--pink), var(--deep-pink));
+      border: none;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    button:hover { transform: scale(1.05); }
+
+    .entries {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .entry {
+      background: white;
+      border-radius: 16px;
+      padding: 1rem;
+      box-shadow: 0 4px 15px rgba(255, 182, 193, 0.3);
+    }
+
+    .entry h4 {
+      margin: 0 0 0.4rem;
+      color: var(--deep-pink);
+    }
+
+    .entry p { margin: 0; white-space: pre-wrap; }
+
+    .entry img {
+      width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-top: 0.5rem;
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--deep-pink);
+      padding: 1rem 0;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo"><span class="heart"></span> Pookie’s Lovely Moments 💕</div>
+  </header>
+
+  <main>
+    <div class="card">
+      <h2>Write Today’s Memory ✨</h2>
+      <input type="date" id="date" />
+      <textarea id="message" placeholder="Write something sweet for her... 💌"></textarea>
+      <select id="mood">
+        <option value="">Mood?</option>
+        <option>🥰 Happy</option>
+        <option>😴 Sleepy</option>
+        <option>😇 Peaceful</option>
+        <option>🤒 Not well</option>
+        <option>🤩 Excited</option>
+      </select>
+      <button id="saveBtn">Save Memory 💖</button>
+    </div>
+
+    <div class="card">
+      <h2>Her Lovely Memories 🧸</h2>
+      <div id="entries" class="entries"></div>
+    </div>
+  </main>
+
+  <div class="footer">Made with 💗 just for my favorite girl 💋</div>
+
+  <script>
+    const saveBtn = document.getElementById('saveBtn');
+    const dateInput = document.getElementById('date');
+    const messageInput = document.getElementById('message');
+    const moodInput = document.getElementById('mood');
+    const entriesDiv = document.getElementById('entries');
+
+    const STORAGE_KEY = 'pookieLovelyTracker';
+
+    const loveImages = [
+      'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=60',
+      'https://images.unsplash.com/photo-1511988617509-a57c8a288659?auto=format&fit=crop&w=800&q=60',
+      'https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=800&q=60',
+      'https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?auto=format&fit=crop&w=800&q=60',
+      'https://images.unsplash.com/photo-1504208434309-cb69f4fe52b0?auto=format&fit=crop&w=800&q=60',
+      'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=60'
+    ];
+
+    function getEntries() {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    }
+
+    function setEntries(data) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
+
+    function getRandomImage() {
+      return loveImages[Math.floor(Math.random() * loveImages.length)];
+    }
+
+    function renderEntries() {
+      const entries = getEntries();
+      entriesDiv.innerHTML = entries.length ? '' : '<p>No lovely memories yet 💌</p>';
+      entries.forEach(e => {
+        const div = document.createElement('div');
+        div.className = 'entry';
+        const img = getRandomImage();
+        div.innerHTML = `<h4>${e.date} ${e.mood || ''}</h4><p>${e.text}</p><img src="${img}" alt="love image"/>`;
+        entriesDiv.appendChild(div);
+      });
+    }
+
+    saveBtn.addEventListener('click', () => {
+      const date = dateInput.value || new Date().toISOString().slice(0,10);
+      const text = messageInput.value.trim();
+      const mood = moodInput.value;
+      if (!text) return alert('Write something sweet 💞');
+      const entries = getEntries();
+      entries.push({ date, text, mood });
+      setEntries(entries);
+      messageInput.value = '';
+      moodInput.value = '';
+      renderEntries();
+    });
+
+    renderEntries();
+  </script>
+</body>
+</html>
