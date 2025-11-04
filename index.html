@@ -11,9 +11,12 @@
   --light-pink:#ffd5ec;--bg:#fff0f6;--text:#4a154b;
   --radius:18px;--shadow:0 8px 24px rgba(255,150,200,.25);
 }
-*{box-sizing:border-box;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{
+  height:100%;
+  scroll-behavior:smooth;
+}
 body {
-  margin:0;
   font-family:'Poppins',sans-serif;
   background:radial-gradient(circle at top left,var(--light-pink),var(--bg));
   color:var(--text);
@@ -141,16 +144,34 @@ section.active {display:flex;}
   font-weight:500;
   animation:fadeIn 1.5s ease;
 }
+
+/* LOGIN FIX */
+#loginCard {
+  max-width:380px;
+  width:90%;
+  margin:2rem auto 3rem auto;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+/* FOOTER FIXED TO BOTTOM */
 .footer {
   background:linear-gradient(90deg,var(--pink),var(--purple));
   color:#fff;
   text-align:center;
-  padding:1.5rem .5rem;
+  padding:1rem .5rem;
   font-size:1rem;
   box-shadow:0 -2px 8px rgba(255,150,200,.3);
   animation:fadeIn 2s ease;
+  margin-top:auto;
 }
-.footer span {display:block;font-size:.85rem;opacity:0.9;margin-top:4px;}
+.footer span {
+  display:block;
+  font-size:.85rem;
+  opacity:0.9;
+  margin-top:4px;
+}
 
 /* 🌸 Animations */
 @keyframes fadeIn {
@@ -170,6 +191,7 @@ section.active {display:flex;}
   to {opacity:1; transform:scale(1);}
 }
 
+/* MOBILE RESPONSIVE FIXES */
 @media(max-width:768px){
   header{font-size:1.1rem;}
   main{padding:.8rem;}
@@ -180,6 +202,8 @@ section.active {display:flex;}
   nav{flex-direction:column;}
   nav button{border-bottom:1px solid var(--light-pink);}
   .card{padding:1rem;}
+  #loginCard{margin-top:3rem;margin-bottom:5rem;}
+  footer{position:relative;}
 }
 </style>
 </head>
@@ -191,7 +215,7 @@ section.active {display:flex;}
 <header>💞 Daily Tracker 💞</header>
 
 <!-- LOGIN -->
-<div id="loginCard" class="card" style="max-width:380px;margin:2rem auto;">
+<div id="loginCard" class="card">
   <h2 style="text-align:center;">Login</h2>
   <input id="username" placeholder="Username" />
   <input id="password" type="password" placeholder="Password" />
@@ -209,7 +233,6 @@ section.active {display:flex;}
 
 <!-- MAIN -->
 <main id="app" style="display:none;">
-  <!-- HOME -->
   <section id="home" class="active">
     <div class="card">
       <h2 id="greetText">🌸 Good Day!</h2>
@@ -221,7 +244,6 @@ section.active {display:flex;}
     </div>
   </section>
 
-  <!-- DAILY -->
   <section id="daily">
     <div class="card">
       <h2>💌 Daily Note</h2>
@@ -239,7 +261,6 @@ section.active {display:flex;}
     </div>
   </section>
 
-  <!-- HEALTH -->
   <section id="health">
     <div class="card">
       <h2>🩺 Health Tracker</h2>
@@ -274,7 +295,6 @@ section.active {display:flex;}
     </div>
   </section>
 
-  <!-- WATER -->
   <section id="water">
     <div class="card">
       <h2>💧 Water Tracker</h2>
@@ -292,7 +312,7 @@ section.active {display:flex;}
 
 <script>
 const API="https://fourcare.onrender.com/memories";
-const allowedUsers={"8367226377":"Chinnu19","admin":"admin19"};
+const allowedUsers={"83***77":"Chin","admin":"adm"};
 let loggedIn=false;
 
 function login(){
