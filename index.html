@@ -983,6 +983,29 @@ window.addEventListener("load", () => {
     console.log("❌ Notifications not supported in this browser.");
   }
 });
+/* 💬 Ask user for permission when app starts */
+async function requestNotificationPermission() {
+  if (!("Notification" in window)) {
+    alert("Notifications are not supported on this device 💔");
+    return false;
+  }
+
+  let permission = Notification.permission;
+  if (permission === "default") {
+    permission = await Notification.requestPermission();
+  }
+
+  if (permission !== "granted") {
+    alert("Please allow notifications to get cute reminders 💖");
+    return false;
+  }
+
+  console.log("💌 Notification permission granted!");
+  return true;
+}
+
+// Ask automatically when app loads
+window.addEventListener("load", requestNotificationPermission);
 
 </script>
 </body>
