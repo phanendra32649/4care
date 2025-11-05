@@ -872,36 +872,57 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-/* 💞 Cute Install Popup Logic */
+<script>
+/* 💞 Cute Install Popup Logic (auto fallback + PWA event) */
 let deferredPrompt;
 const installPopup = document.getElementById('installPopup');
 const installBtn = document.getElementById('installBtn');
 const closePopup = document.getElementById('closePopup');
+let popupShown = false;
 
+// 🎀 Try to show popup automatically even if event not fired
+window.addEventListener('load', () => {
+  // if PWA already installed, don’t show again
+  if (window.matchMedia('(display-mode: standalone)').matches) return;
+  // show fallback popup after 5s if not already shown
+  setTimeout(() => {
+    if (!popupShown && !localStorage.getItem('pwaPromptShown')) {
+      installPopup.classList.remove('hidden');
+      popupShown = true;
+      localStorage.setItem('pwaPromptShown', 'true');
+    }
+  }, 5000);
+});
+
+// 💞 Real PWA install event trigger
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
-
-  // Show popup only once
+  // only show once
   if (!localStorage.getItem('pwaPromptShown')) {
-    setTimeout(() => installPopup.classList.remove('hidden'), 1500);
-    localStorage.setItem('pwaPromptShown', 'true');
+    setTimeout(() => {
+      installPopup.classList.remove('hidden');
+      popupShown = true;
+      localStorage.setItem('pwaPromptShown', 'true');
+    }, 2000);
   }
 });
 
 installBtn.addEventListener('click', async () => {
-  if (!deferredPrompt) return;
-
-  installPopup.classList.add('hidden');
-  deferredPrompt.prompt();
-
-  const choice = await deferredPrompt.userChoice;
-  if (choice.outcome === 'accepted') {
-    console.log('💞 App installed successfully!');
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const choice = await deferredPrompt.userChoice;
+    if (choice.outcome === 'accepted') {
+      console.log('💞 App installed successfully!');
+    } else {
+      console.log('🌸 User dismissed install prompt.');
+    }
+    deferredPrompt = null;
   } else {
-    console.log('🌸 User dismissed install prompt.');
+    // fallback: close popup
+    console.log('💖 Manual install popup shown (fallback)');
   }
-  deferredPrompt = null;
+  installPopup.classList.add('hidden');
 });
 
 closePopup.addEventListener('click', () => {
