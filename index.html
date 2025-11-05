@@ -850,54 +850,68 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-/* 💞 Cute Install Popup Logic (auto fallback + PWA event) */
+/* 💞 Cute Install Popup Logic (always show until installed) */
 let deferredPrompt;
 const installPopup = document.getElementById('installPopup');
 const installBtn = document.getElementById('installBtn');
 const closePopup = document.getElementById('closePopup');
 let popupShown = false;
 
-// Auto fallback after load
+// 🎀 Helper: check if already installed
+function isAppInstalled() {
+  return (
+    window.matchMedia('(display-mode: standalone)').matches ||
+    window.navigator.standalone === true
+  );
+}
+
+// 💞 Always show popup on load if not installed
 window.addEventListener('load', () => {
-  if (window.matchMedia('(display-mode: standalone)').matches) return; // already installed
-  setTimeout(() => {
-    if (!popupShown && !localStorage.getItem('pwaPromptShown')) {
-      console.log('💞 Showing fallback popup');
+  if (!isAppInstalled()) {
+    setTimeout(() => {
+      console.log('💞 Showing cute install popup (not installed)');
       installPopup.classList.remove('hidden');
       popupShown = true;
-      localStorage.setItem('pwaPromptShown', 'true');
-    }
-  }, 5000);
+    }, 4000); // show after 4s
+  } else {
+    console.log('💖 App already installed, skipping popup');
+  }
 });
 
-// Native PWA event
+// 💞 Catch real PWA install event
 window.addEventListener('beforeinstallprompt', (e) => {
   console.log('💞 beforeinstallprompt fired');
   e.preventDefault();
   deferredPrompt = e;
-  if (!localStorage.getItem('pwaPromptShown')) {
+  if (!isAppInstalled() && !popupShown) {
     setTimeout(() => {
       installPopup.classList.remove('hidden');
       popupShown = true;
-      localStorage.setItem('pwaPromptShown', 'true');
-    }, 2000);
+    }, 3000);
   }
 });
 
+// 💞 Install button handler
 installBtn.addEventListener('click', async () => {
   if (deferredPrompt) {
     deferredPrompt.prompt();
     const choice = await deferredPrompt.userChoice;
-    console.log('💞 Install choice:', choice);
+    if (choice.outcome === 'accepted') {
+      console.log('💖 User installed app');
+      installPopup.classList.add('hidden');
+    } else {
+      console.log('🌸 User dismissed prompt');
+    }
     deferredPrompt = null;
   } else {
-    console.log('💞 Fallback install popup clicked');
+    console.log('💞 Manual install popup clicked');
+    installPopup.classList.add('hidden');
   }
-  installPopup.classList.add('hidden');
 });
 
+// 💞 Close button handler (but will reappear next visit)
 closePopup.addEventListener('click', () => {
-  console.log('Popup closed by user');
+  console.log('🌸 Popup closed by user — will show again next visit');
   installPopup.classList.add('hidden');
 });
 </script>
