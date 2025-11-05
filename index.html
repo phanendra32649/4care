@@ -1,171 +1,275 @@
 <!DOCTYPE html>
-<html lang="en">
-<!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-  <!-- 💖 Favicon -->
+  <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png" sizes="32x32">
   <link rel="apple-touch-icon" href="favicon.png">
   <meta name="theme-color" content="#ff9ecd">
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>💖 Daily Tracker 💖</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Daily Tracker4U</title>
 
   <style>
-  :root{
-    --pink:#ff72b1;--pink-soft:#ff9ecd;--purple:#8b5cf6;--bg:#0f0a18;
-    --card:#1b112a;--glass:rgba(255,255,255,.12);--border:rgba(255,255,255,.18);
-    --text:#f7e9f3;--muted:#c8b7c4;--success:#21c17a;--warn:#ffb020;--error:#ff5577;
-    --shadow:0 20px 40px rgba(0,0,0,.45);--radius:18px;
+  /* ================== THEME TOKENS ================== */
+  :root {
+    --radius: 18px;
+    --shadow-1: 0 10px 24px rgba(0,0,0,.14);
+    --shadow-2: 0 20px 40px rgba(0,0,0,.25);
   }
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0;
-  font-family:ui-sans-serif,system-ui,"Poppins",Segoe UI,Roboto,Arial;
-  color:var(--text);
-  background:
-    radial-gradient(80vw 80vw at -10% -10%, #3a1246 0%, transparent 50%),
-    radial-gradient(60vw 60vw at 110% -10%, #2b1a63 0%, transparent 50%),
-    radial-gradient(100vw 80vw at 50% 120%, #52123d 0%, #130b1b 60%);
-  min-height:100vh; overflow-x:hidden;
-}
 
-/* Floating particles (subtle, pro) */
-.bg-particles{position:fixed; inset:0; pointer-events:none; z-index:0;}
-.p{position:absolute; width:8px; height:8px; border-radius:50%;
-   background:radial-gradient(circle,#ffd6ec,transparent 70%); opacity:.35;
-   filter:blur(.2px); animation:float 16s linear infinite;}
-@keyframes float{from{transform:translateY(0)}to{transform:translateY(-110vh)}}
+  /* Light theme */
+  [data-theme="light"] {
+    --bg-grad-1: radial-gradient(1200px 800px at -10% -10%, #ffe3f1 0%, transparent 55%),
+                 radial-gradient(900px 700px at 120% -10%, #efe4ff 0%, transparent 55%),
+                 radial-gradient(1200px 800px at 50% 120%, #ffd7eb 0%, #fff8fb 60%);
+    --panel: #ffffff;
+    --panel-border: #f6d8ea;
+    --text: #2d0f2a;
+    --muted: #6e4667;
+    --pink: #ff9ecd;
+    --pink-deep: #ff72b1;
+    --purple: #c084fc;
+    --accent-grad: linear-gradient(90deg, #ffd6ee, #ffb6de);
+    --nav-bg: rgba(255,255,255,0.86);
+    --ink-glow: 0 12px 24px rgba(255,150,200,.35);
+    --chip-bg: #ffe8f3;
+    --input-bg: #ffffff;
+    --glass: rgba(255,255,255,.08);
+  }
 
-/* Header */
-header{
-  position:sticky; top:0; z-index:10;
-  backdrop-filter:saturate(160%) blur(10px);
-  background:linear-gradient(90deg,rgba(255,114,177,.25),rgba(139,92,246,.25));
-  border-bottom:1px solid var(--border);
-  box-shadow:var(--shadow);
-}
-.header-inner{
-  max-width:1000px; margin:0 auto; padding:.9rem 1rem;
-  display:flex; align-items:center; gap:.8rem;
-}
-.logo{
-  width:42px; height:42px; border-radius:12px; display:grid; place-items:center;
-  background:linear-gradient(135deg,var(--pink-soft),#ff78ca);
-  box-shadow:0 10px 25px rgba(255,120,202,.35);
-  animation:heartbeat 2.5s ease-in-out infinite;
-}
-.logo span{font-size:22px}
-@keyframes heartbeat{0%,100%{transform:scale(1)} 45%{transform:scale(1.08)} 60%{transform:scale(.98)}}
-.title{font-weight:800; letter-spacing:.3px}
-.subtitle{color:var(--muted); font-size:.9rem}
+  /* Dark theme */
+  [data-theme="dark"] {
+    --bg-grad-1: radial-gradient(80vw 80vw at -10% -10%, #3a1246 0%, transparent 50%),
+                 radial-gradient(60vw 60vw at 110% -10%, #2b1a63 0%, transparent 50%),
+                 radial-gradient(100vw 80vw at 50% 120%, #52123d 0%, #130b1b 60%);
+    --panel: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+    --panel-border: rgba(255,255,255,.18);
+    --text: #f7e9f3;
+    --muted: #c8b7c4;
+    --pink: #ff9ecd;
+    --pink-deep: #ff72b1;
+    --purple: #8b5cf6;
+    --accent-grad: linear-gradient(90deg, #ffd6ec, #ff9ecd);
+    --nav-bg: rgba(30, 18, 44, 0.55);
+    --ink-glow: 0 12px 24px rgba(255,150,200,.35);
+    --chip-bg: rgba(255,255,255,.10);
+    --input-bg: rgba(255,255,255,.06);
+    --glass: rgba(255,255,255,.10);
+  }
 
-/* Container */
-.container{max-width:1000px; margin:0 auto; padding:1rem; position:relative; z-index:1}
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    font-family: ui-sans-serif, system-ui, "Poppins", Segoe UI, Roboto, Arial;
+    color: var(--text);
+    background: var(--bg-grad-1);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
 
-/* Glass cards */
-.card{
-  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));
-  border:1px solid var(--border);
-  border-radius:var(--radius); box-shadow:var(--shadow);
-  padding:1.2rem;
-}
+  /* ===== Header with theme toggle & logout ===== */
+  header {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: saturate(160%) blur(10px);
+    background: linear-gradient(90deg, rgba(255,114,177,.25), rgba(139,92,246,.25));
+    border-bottom: 1px solid var(--panel-border);
+    box-shadow: var(--shadow-2);
+  }
+  .header-inner {
+    max-width: 1000px; margin: 0 auto; padding: .8rem 1rem;
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .brand {
+    display: flex; align-items: center; gap: .8rem;
+    min-width: 240px;
+  }
+  .logo {
+    width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center;
+    background: linear-gradient(135deg, #ffb6de, #ff78ca);
+    box-shadow: 0 10px 25px rgba(255,120,202,.35);
+    animation: heartbeat 2.5s ease-in-out infinite;
+    flex: 0 0 auto;
+  }
+  .logo span { font-size: 22px; line-height: 1; }
+  .title { font-weight: 800; letter-spacing: .3px; }
+  .subtitle { color: var(--muted); font-size: .9rem; }
 
-/* Tabs (with sliding indicator) */
-.tabs{
-  margin:1rem 0; display:flex; align-items:center; gap:.6rem;
-  background:rgba(255,255,255,.06);
-  border:1px solid var(--border); border-radius:999px; padding:.35rem;
-}
-.tab{
-  flex:1; position:relative; z-index:1;
-  background:transparent; color:var(--muted);
-  border:none; padding:.7rem .8rem; border-radius:999px; cursor:pointer;
-  font-weight:700; letter-spacing:.3px;
-}
-.tab.active{color:#201224}
-.tab-ink{
-  position:absolute; height:38px; border-radius:999px; background:linear-gradient(90deg,#ffd6ec,#ff9ecd);
-  box-shadow:0 10px 25px rgba(255,150,200,.35);
-  transition:transform .28s ease, width .28s ease; z-index:0;
-}
+  .header-actions { display:flex; gap:.5rem; align-items:center; flex-wrap: wrap; }
+  .icon-btn {
+    border: 1px solid var(--panel-border);
+    background: var(--panel); color: var(--text);
+    padding: .6rem .8rem; border-radius: 10px; cursor: pointer;
+    box-shadow: var(--shadow-1); font-weight: 700;
+  }
+  .icon-btn:hover { transform: translateY(-1px); }
+  .logout { display:none; } /* shown after login */
 
-/* Views with slide transitions */
-.views{position:relative; min-height:320px}
-.view{
-  position:absolute; inset:0; opacity:0; transform:translateX(25px) scale(.98);
-  transition:opacity .28s ease, transform .28s ease; pointer-events:none;
-}
-.view.active{opacity:1; transform:translateX(0) scale(1); pointer-events:auto}
+  @keyframes heartbeat {0%,100%{transform:scale(1)} 45%{transform:scale(1.08)} 60%{transform:scale(.98)}}
 
-/* Inputs */
-.input, .select, .textarea{
-  width:100%; background:rgba(255,255,255,.06); color:var(--text);
-  border:1px solid var(--border); border-radius:12px; padding:.9rem 1rem;
-  outline:none; transition:border .2s, box-shadow .2s; font-size:1rem;
-}
-.input:focus,.select:focus,.textarea:focus{border-color:#ffacd5; box-shadow:0 0 0 4px rgba(255,172,213,.15)}
-.textarea{min-height:120px; resize:vertical}
+  /* ===== Background particles ===== */
+  .bg-particles { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+  .p { position:absolute; width:8px; height:8px; border-radius:50%;
+       background: radial-gradient(circle,#ffd6ec, transparent 70%);
+       opacity:.35; filter: blur(.2px); animation: float 16s linear infinite; }
+  @keyframes float { from{ transform:translateY(0) } to{ transform:translateY(-110vh) } }
 
-/* Buttons */
-.btn{
-  width:100%; padding:.9rem 1rem; border:none; border-radius:12px; cursor:pointer;
-  color:#130b1b; font-weight:800; letter-spacing:.4px;
-  background:linear-gradient(90deg,#ffd6ec,#ff9ecd);
-  box-shadow:0 10px 25px rgba(255,150,200,.35); transition:transform .15s ease, filter .2s;
-}
-.btn:hover{transform:translateY(-1px)}
-.btn:active{transform:translateY(0) scale(.98)}
+  /* ===== Container ===== */
+  .container { max-width: 1000px; margin: 0 auto; padding: 1rem; position: relative; z-index: 1; }
 
-/* Login layout */
-.login-wrap{display:grid; place-items:center; min-height:calc(100vh - 84px); padding:1rem}
-.login-card{max-width:420px; width:100%; display:grid; gap:1rem; position:relative; overflow:hidden}
-.login-brand{display:flex; align-items:center; gap:.8rem}
-.login-brand .logo{width:48px;height:48px}
-.login-actions{display:flex; gap:.6rem; align-items:center; justify-content:space-between}
-.inline{display:flex; align-items:center; gap:.6rem}
-.muted{color:var(--muted); font-size:.9rem}
+  /* ===== Cards ===== */
+  .card {
+    background: var(--panel); border: 1px solid var(--panel-border);
+    border-radius: var(--radius); box-shadow: var(--shadow-2); padding: 1.2rem;
+    animation: cardIn .35s ease both;
+    backdrop-filter: blur(10px);
+  }
+  @keyframes cardIn { from{ opacity:0; transform: translateY(8px) } to { opacity:1; transform:none } }
 
-/* Show/Hide password */
-.pw{position:relative}
-.pw .toggle{
-  position:absolute; right:10px; top:50%; transform:translateY(-50%);
-  background:transparent; border:none; color:var(--muted); cursor:pointer; font-size:.95rem;
-}
+  /* ===== Tabs with sliding ink ===== */
+  .tabs { margin: 1rem 0; }
+  .tabs-inner {
+    position: relative; display: flex; gap: .5rem;
+    background: var(--nav-bg); border:1px solid var(--panel-border);
+    border-radius:999px; padding:.35rem; box-shadow: var(--shadow-1);
+    flex-wrap: wrap;
+  }
+  .tab {
+    flex:1; position: relative; z-index: 1;
+    background: transparent; color: var(--muted);
+    border:none; padding:.7rem .8rem; border-radius: 999px; cursor: pointer;
+    font-weight: 800; letter-spacing:.2px;
+    transition: color .2s, transform .18s;
+    font-size: .95rem;
+  }
+  .tab.active { color: #201224; transform: scale(1.02); }
+  [data-theme="dark"] .tab.active { color: #130b1b; } /* readable on dark */
 
-/* Symptoms chips */
-.chips{display:flex; flex-wrap:wrap; gap:.5rem}
-.chip{background:rgba(255,255,255,.08); border:1px solid var(--border); border-radius:999px; padding:.4rem .7rem}
-.chip input{transform:translateY(1px); margin-right:.35rem}
+  .ink {
+    position:absolute; height:38px; border-radius:999px; background: var(--accent-grad);
+    box-shadow: var(--ink-glow);
+    transition: transform .28s ease, width .28s ease; z-index: 0; left: 4px; top:4px;
+    width: 25%;
+  }
 
-/* Footer (non-blocking, elegant) */
-footer{
-  padding:1rem; text-align:center; color:var(--muted)
-}
+  /* ===== Views & transitions ===== */
+  .views { position: relative; min-height: 320px; }
+  .view {
+    position:absolute; inset:0; opacity:0; transform: translateX(25px) scale(.98);
+    transition: opacity .28s ease, transform .28s ease; pointer-events: none;
+  }
+  .view.active { opacity:1; transform:none; pointer-events:auto; }
 
-/* Toasts */
-.toast-wrap{position:fixed; right:12px; bottom:12px; display:grid; gap:.5rem; z-index:999}
-.toast{
-  background:#24162f; border:1px solid var(--border); color:var(--text);
-  padding:.7rem .9rem; border-radius:12px; box-shadow:var(--shadow);
-  animation:toastIn .18s ease;
-}
-.toast.ok{border-color:rgba(33,193,122,.5)}
-.toast.err{border-color:rgba(255,85,119,.5)}
-@keyframes toastIn{from{opacity:0; transform:translateY(8px)}to{opacity:1; transform:translateY(0)}}
+  /* ===== Inputs & buttons ===== */
+  .input, .select, .textarea {
+    width:100%; background: var(--input-bg); color: var(--text);
+    border:1px solid var(--panel-border); border-radius:12px; padding:.9rem 1rem;
+    outline:none; transition:border .2s, box-shadow .2s; font-size:1rem;
+  }
+  .input:focus,.select:focus,.textarea:focus{
+    border-color:#ffacd5; box-shadow:0 0 0 4px rgba(255,172,213,.15);
+  }
+  .textarea { min-height: 120px; resize: vertical; }
+  .btn {
+    width:100%; padding:.9rem 1rem; border:none; border-radius:12px; cursor:pointer;
+    color:#130b1b; font-weight:800; letter-spacing:.3px;
+    background: var(--accent-grad); box-shadow: var(--ink-glow);
+    transition: transform .15s ease, filter .2s;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn:active { transform: translateY(0) scale(.98); }
 
-/* Loader bar */
-.loader{position:fixed; left:0; top:0; height:3px; width:0; background:linear-gradient(90deg,#ff9ecd,#8b5cf6); z-index:9999; box-shadow:0 0 12px rgba(255,150,200,.7);}
+  /* Chips */
+  .chips { display:flex; flex-wrap:wrap; gap:.5rem; }
+  .chip { background: var(--chip-bg); border:1px solid var(--panel-border);
+          border-radius:999px; padding:.4rem .7rem; }
+  .chip input { transform:translateY(1px); margin-right:.35rem; }
 
-/* Responsive */
-@media (max-width:720px){
-  .header-inner{padding:.8rem .8rem}
-  .title{font-size:1.05rem}
-  .login-card{padding:1rem}
-}
-</style>
+  /* ===== Login layout ===== */
+  .login-wrap { display:grid; place-items:center; min-height: calc(100vh - 90px); padding: 1rem; }
+  .login-card { max-width: 440px; width: 100%; display:grid; gap:1rem; position:relative; overflow:hidden; }
+  .login-brand { display:flex; align-items:center; gap:.8rem; }
+  .login-brand .logo { width:48px; height:48px; }
+  .login-actions { display:flex; gap:.6rem; align-items:center; justify-content:space-between; }
+  .inline { display:flex; align-items:center; gap:.6rem; }
+  .muted { color: var(--muted); font-size:.95rem; }
+
+  .pw { position:relative; }
+  .pw .toggle {
+    position:absolute; right:10px; top:50%; transform: translateY(-50%);
+    background:transparent; border:none; color:var(--muted); cursor:pointer; font-size:.95rem; font-weight:700;
+  }
+
+  /* ===== Footer (sticky, glowing) ===== */
+  .footer {
+    position: fixed; bottom: 0; left: 0; width: 100%;
+    background: linear-gradient(90deg, var(--pink), var(--purple)); color: #fff;
+    text-align: center; padding: .9rem .6rem; font-size: 1rem;
+    box-shadow: 0 -8px 24px rgba(255,150,200,.35); z-index: 60;
+  }
+  .footer span { display:block; font-size:.85rem; opacity: .9; margin-top: 4px; }
+  main, .login-wrap { padding-bottom: 90px; }
+
+  /* ===== Toasts (bottom-right) ===== */
+  .toast-wrap { position:fixed; right:12px; bottom:12px; display:grid; gap:.5rem; z-index:999 }
+  .toast {
+    background: #24162f; border:1px solid var(--panel-border); color: var(--text);
+    padding:.7rem .9rem; border-radius:12px; box-shadow: var(--shadow-2);
+    animation: toastIn .18s ease;
+    max-width: 80vw;
+  }
+  .toast.ok { border-color: rgba(33,193,122,.5) }
+  .toast.err { border-color: rgba(255,85,119,.5) }
+  @keyframes toastIn { from{ opacity:0; transform: translateY(8px) } to { opacity:1; transform:none } }
+
+  /* ===== Center popup (save success) ===== */
+  .popup {
+    position: fixed; left: 50%; top: 48%;
+    transform: translate(-50%,-44%) scale(.94);
+    background: var(--accent-grad); color:#201224; font-weight: 800;
+    padding: 1rem 1.3rem; border-radius: 16px; z-index: 1000;
+    box-shadow: 0 18px 40px rgba(255,150,200,.45);
+    opacity: 0; pointer-events: none; transition: all .28s ease;
+  }
+  .popup.show { opacity:1; transform: translate(-50%,-50%) scale(1); }
+
+  /* ===== Loader bar ===== */
+  .loader { position:fixed; left:0; top:0; height:3px; width:0;
+            background: linear-gradient(90deg, var(--pink), var(--purple));
+            z-index: 100; box-shadow: 0 0 12px rgba(255,150,200,.7); }
+
+  /* ================== RESPONSIVE POLISH ================== */
+  @media (max-width: 900px) {
+    .tabs-inner { flex-wrap: wrap; }
+    .title { font-size: 1.2rem; }
+    .subtitle { font-size: .85rem; }
+  }
+
+  @media (max-width: 720px) {
+    .header-inner { flex-direction: column; align-items: flex-start; }
+    .brand { width: 100%; }
+    .title { font-size: 1.08rem; }
+    .tabs-inner { gap: .4rem; }
+    .tab { font-size: .9rem; padding: .55rem .7rem; flex: 1 1 45%; }
+    .card { padding: 1rem; }
+    .login-card { padding: 1rem; width: 100%; }
+    .footer { font-size: .9rem; padding: .7rem; }
+    /* Hide ink on small screens and use active background */
+    .ink { display: none; }
+    .tab.active { background: var(--accent-grad); box-shadow: var(--ink-glow); }
+  }
+
+  @media (max-width: 480px) {
+    .header-inner { gap: .6rem; }
+    .brand { gap: .6rem; }
+    .logo { width: 36px; height: 36px; }
+    .tab { font-size: .82rem; }
+    .btn, .input, .select, .textarea { font-size: .92rem; padding: .8rem; }
+    .footer { font-size: .85rem; }
+  }
+  </style>
 </head>
 <body>
 
@@ -174,10 +278,16 @@ footer{
 
 <header>
   <div class="header-inner">
-    <div class="logo"><span>💖</span></div>
-    <div>
-      <div class="title">Daily Tracker</div>
-      <div class="subtitle">Sweet, simple & private</div>
+    <div class="brand">
+      <div class="logo"><span>💖</span></div>
+      <div>
+        <div class="title">Daily Tracker</div>
+        <div class="subtitle" id="welcomeSub">Sweet, simple & private</div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button id="themeToggle" class="icon-btn" title="Toggle theme">🌙</button>
+      <button id="logoutBtn" class="icon-btn logout" title="Logout">Logout</button>
     </div>
   </div>
 </header>
@@ -211,30 +321,33 @@ footer{
         <button class="btn" onclick="login()">Login</button>
       </div>
 
-      <div id="loginMsg" class="muted"></div>
+      <div id="loginMsg" class="muted" aria-live="polite"></div>
     </div>
   </div>
 
   <!-- APP -->
   <div id="appView" style="display:none">
-    <div class="tabs card" style="position:relative">
-      <div id="tabInk" class="tab-ink" style="width:25%"></div>
-      <button class="tab active" data-tab="home">🌅 Home</button>
-      <button class="tab" data-tab="daily">💌 Daily</button>
-      <button class="tab" data-tab="health">🩺 Health</button>
-      <button class="tab" data-tab="water">💧 Water</button>
+    <div class="tabs">
+      <div class="tabs-inner card">
+        <div id="ink" class="ink"></div>
+        <button class="tab active" data-tab="home">🌅 Home</button>
+        <button class="tab" data-tab="daily">💌 Daily</button>
+        <button class="tab" data-tab="health">🩺 Health</button>
+        <button class="tab" data-tab="water">💧 Water</button>
+      </div>
     </div>
 
     <div class="views">
       <!-- HOME -->
       <div id="home" class="view active">
         <div class="card" style="margin-bottom:1rem">
-          <h2 id="greetText" style="margin:.2rem 0 0.4rem 0">🌸 Good Day!</h2>
+          <h2 id="greetText" style="margin:.2rem 0 .4rem 0">🌸 Good Day!</h2>
           <div class="muted">Welcome back💖</div>
         </div>
         <div class="card">
           <h3 style="margin-top:0">Today’s Summary 🌈</h3>
-          <div id="sumText" class="muted">Loading...</div>
+          <div id="sumText" class="muted" style="margin-bottom:.6rem">Loading...</div>
+          <div id="todayList" style="display:grid; gap:.6rem"></div>
         </div>
       </div>
 
@@ -300,87 +413,119 @@ footer{
           </div>
         </div>
       </div>
-
     </div>
   </div>
+
 </div>
 
-<footer>💗 Made with love & care — <span class="muted">-Nannaa</span></footer>
+<footer class="footer">💗 Made with love & care 💗<span>-Nannaa</span></footer>
 
-<!-- System UI: loader + toasts -->
+<!-- UI helpers -->
 <div class="loader" id="loader"></div>
 <div class="toast-wrap" id="toasts"></div>
+<div class="popup" id="centerPopup">Saved ✅</div>
 
 <script>
-/* ---------- Config ---------- */
+/* ========= Config ========= */
 const API = "https://fourcare.onrender.com/memories";
 const allowedUsers = {"8367226377":"Chinnuu19","admin":"adm"};
 let currentUser = null;
 
-/* ---------- Particles ---------- */
+/* ========= Theme Toggle ========= */
+const htmlEl = document.documentElement;
+const themeBtn = document.getElementById('themeToggle');
+(function initTheme(){
+  const saved = localStorage.getItem('dt_theme');
+  if(saved === 'light' || saved === 'dark') htmlEl.setAttribute('data-theme', saved);
+  themeBtn.textContent = htmlEl.getAttribute('data-theme') === 'dark' ? '🌙' : '🌞';
+})();
+themeBtn.addEventListener('click', ()=>{
+  const next = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  htmlEl.setAttribute('data-theme', next);
+  localStorage.setItem('dt_theme', next);
+  themeBtn.textContent = next === 'dark' ? '🌙' : '🌞';
+});
+
+/* ========= Particles ========= */
 const pr = document.getElementById('particles');
-for(let i=0;i<20;i++){
+for(let i=0;i<24;i++){
   const b = document.createElement('div');
   b.className='p';
   b.style.left = (Math.random()*100)+'%';
   b.style.bottom = (-10 + Math.random()*20)+'%';
   b.style.animationDuration = (14 + Math.random()*10)+'s';
-  b.style.width = b.style.height = (6 + Math.random()*8)+'px';
+  const sz = (6 + Math.random()*10);
+  b.style.width = b.style.height = sz+'px';
   pr.appendChild(b);
 }
 
-/* ---------- Helpers ---------- */
+/* ========= Toasts / Popup / Loader ========= */
 function toast(msg, ok=true){
   const t = document.createElement('div');
   t.className = 'toast ' + (ok ? 'ok':'err');
   t.textContent = msg;
   document.getElementById('toasts').appendChild(t);
-  setTimeout(()=> t.remove(), 3000);
+  setTimeout(()=> t.remove(), 3200);
 }
 function setLoader(active){
   const el = document.getElementById('loader');
   el.style.transition = 'width .25s ease';
   el.style.width = active ? '70%' : '100%';
-  if(!active) setTimeout(()=> el.style.width='0', 250);
+  if(!active) setTimeout(()=> el.style.width='0', 280);
 }
+function centerPopup(message="Saved ✅"){
+  const p = document.getElementById('centerPopup');
+  p.textContent = message;
+  p.classList.add('show');
+  setTimeout(()=> p.classList.remove('show'), 1800);
+}
+
+/* ========= Login / Logout ========= */
 function togglePw(){
   const el = document.getElementById('password');
   el.type = el.type === 'password' ? 'text' : 'password';
 }
-
-/* ---------- Login ---------- */
 function login(){
   const u = document.getElementById('username').value.trim();
   const p = document.getElementById('password').value.trim();
-  const remember = document.getElementById('remember')?.checked;
-  if(!u || !p){ document.getElementById('loginMsg').textContent='Enter username & password'; return; }
+  if(!u || !p){
+    document.getElementById('loginMsg').textContent='Enter username & password';
+    toast('Enter username & password', false);
+    return;
+  }
   if(allowedUsers[u] === p){
     currentUser = u;
-    if(remember){ localStorage.setItem('dt_user', u); }
+    if(document.getElementById('remember')?.checked){ localStorage.setItem('dt_user', u); }
     document.getElementById('loginView').style.display='none';
     document.getElementById('appView').style.display='block';
-    setGreeting();
-    moveInk(0);
-    loadSummary();
+    document.getElementById('logoutBtn').style.display='inline-flex';
+    setGreeting(); safeMoveInkToActive(); loadSummary(); animateWelcome();
     toast('Logged in ✨', true);
   }else{
     document.getElementById('loginMsg').textContent='Invalid login 💔';
     toast('Login failed', false);
   }
 }
+document.getElementById('logoutBtn').addEventListener('click', ()=>{
+  localStorage.removeItem('dt_user');
+  currentUser = null;
+  document.getElementById('appView').style.display='none';
+  document.getElementById('loginView').style.display='grid';
+  document.getElementById('logoutBtn').style.display='none';
+  toast('Logged out', true);
+});
 (function autoLogin(){
   const u = localStorage.getItem('dt_user');
   if(u && allowedUsers[u]){
     currentUser = u;
     document.getElementById('loginView').style.display='none';
     document.getElementById('appView').style.display='block';
-    setGreeting();
-    moveInk(0);
-    loadSummary();
+    document.getElementById('logoutBtn').style.display='inline-flex';
+    setGreeting(); safeMoveInkToActive(); loadSummary(); animateWelcome();
   }
 })();
 
-/* ---------- Tabs with ink ---------- */
+/* ========= Tabs with ink ========= */
 const tabs = Array.from(document.querySelectorAll('.tab'));
 const views = {
   home: document.getElementById('home'),
@@ -388,30 +533,49 @@ const views = {
   health: document.getElementById('health'),
   water: document.getElementById('water')
 };
-const ink = document.getElementById('tabInk');
+const ink = document.getElementById('ink');
 
 function moveInk(index){
-  const wrap = document.querySelector('.tabs');
+  const wrap = document.querySelector('.tabs-inner');
+  if(!wrap) return;
   const buttons = wrap.querySelectorAll('.tab');
   const target = buttons[index];
+  if(!target) return;
   const rect = target.getBoundingClientRect();
   const wrapRect = wrap.getBoundingClientRect();
   const w = rect.width;
-  const x = rect.left - wrapRect.left;
+  const x = rect.left - wrapRect.left + 4; // padding offset
   ink.style.width = w + 'px';
   ink.style.transform = `translateX(${x}px)`;
 }
+function activeTabIndex(){
+  const idx = tabs.findIndex(b => b.classList.contains('active'));
+  return idx >= 0 ? idx : 0;
+}
+function safeMoveInkToActive(){
+  if(getComputedStyle(ink).display === 'none') return; // ink hidden on mobile
+  requestAnimationFrame(()=> moveInk(activeTabIndex()));
+}
+
 tabs.forEach((btn,idx)=>{
   btn.addEventListener('click', ()=>{
     tabs.forEach(b=>b.classList.remove('active'));
     btn.classList.add('active');
     Object.values(views).forEach(v=>v.classList.remove('active'));
     views[btn.dataset.tab].classList.add('active');
-    moveInk(idx);
+    safeMoveInkToActive();
   });
 });
 
-/* ---------- Greeting ---------- */
+// Recompute ink on resize/orientation change (debounced)
+let _rz;
+window.addEventListener('resize', ()=>{
+  clearTimeout(_rz);
+  _rz = setTimeout(safeMoveInkToActive, 120);
+});
+window.addEventListener('orientationchange', ()=> setTimeout(safeMoveInkToActive, 200));
+
+/* ========= Greeting ========= */
 function setGreeting(){
   const h = new Date().getHours();
   let text = "Hello,💕";
@@ -420,8 +584,15 @@ function setGreeting(){
   else text="🌙 Good Evening Chinnuu!";
   document.getElementById('greetText').textContent = text;
 }
+function animateWelcome(){
+  const el = document.getElementById('welcomeSub');
+  el.textContent = "Welcome back, Chinnuu 💞";
+  el.style.transition = 'opacity .4s ease, transform .4s ease';
+  el.style.opacity = '0'; el.style.transform = 'translateY(6px)';
+  setTimeout(()=>{ el.style.opacity='1'; el.style.transform='none'; }, 60);
+}
 
-/* ---------- API ---------- */
+/* ========= API ========= */
 async function postMemory(payload){
   setLoader(true);
   try{
@@ -432,9 +603,11 @@ async function postMemory(payload){
     });
     if(!res.ok) throw new Error('Bad response');
     toast('Saved ✅', true);
+    centerPopup('Saved ✅');
   }catch(e){
     console.error(e);
     toast('Save failed', false);
+    centerPopup('Save failed ❌');
   }finally{
     setLoader(false);
   }
@@ -451,23 +624,17 @@ async function fetchAll(){
   }
 }
 
-/* ---------- Saves (detailed, professional payloads) ---------- */
+/* ========= Save handlers ========= */
 // DAILY
 async function saveDaily(){
   const date = document.getElementById('dailyDate').value || new Date().toISOString().slice(0,10);
   const text = document.getElementById('dailyText').value.trim();
   const mood = document.getElementById('dailyMood').value;
   if(!text){ toast('Write something 💌', false); return; }
-
   const payload = {
-    section: 'daily',
-    date,
-    user: currentUser,
-    mood,
-    text,
-    summaryText: `Note (${mood||'—'}): ${text.slice(0,80)}${text.length>80?'...':''}`,
-    details: { mood, text },
-    createdAt: new Date().toISOString()
+    section:'daily', date, user: currentUser, mood, text,
+    summaryText:`Note (${mood||'—'}): ${text.slice(0,80)}${text.length>80?'...':''}`,
+    details:{mood,text}, createdAt:new Date().toISOString()
   };
   await postMemory(payload);
   document.getElementById('dailyText').value='';
@@ -487,18 +654,15 @@ async function saveHealth(){
   if(sleep && sleep<6) tips.push("Try to rest a bit more tonight 😴");
   else if(sleep>9) tips.push("Plenty of sleep! Keep your rhythm 🌸");
   if(feeling==="Tired"||feeling==="Cramps") tips.push("Gentle stretching or warm tea might help 💕");
-  if(appetite==="Low") tips.push("Eat small healthy meals today 🍎");
+  if(appetite==="No") tips.push("Have small frequent meals today 🍎");
   if(symptoms.includes("Stress")) tips.push("Take deep breaths and relax, Pookie 🌼");
   document.getElementById('healthTip').textContent = tips.join(' ');
 
   const payload = {
-    section:'health',
-    date,
-    user: currentUser,
-    feeling, sleep, appetite, symptoms,
-    summaryText: `Health: feeling ${feeling||'—'}, sleep ${sleep||0}h, appetite ${appetite||'—'}, symptoms ${symptoms.join(', ')||'—'}`,
-    details: { feeling, sleep, appetite, symptoms, suggestions: tips },
-    createdAt: new Date().toISOString()
+    section:'health', date, user: currentUser, feeling, sleep, appetite, symptoms,
+    summaryText:`Health: feeling ${feeling||'—'}, sleep ${sleep||0}h, appetite ${appetite||'—'}, symptoms ${symptoms.join(', ')||'—'}`,
+    details:{feeling, sleep, appetite, symptoms, suggestions: tips},
+    createdAt:new Date().toISOString()
   };
   await postMemory(payload);
 
@@ -517,44 +681,77 @@ async function saveWater(){
   if(!water){ toast('Enter water intake 💧', false); return; }
 
   const tipEl = document.getElementById('waterTip');
-  tipEl.textContent = water<6 ? "Drink a bit more water to stay hydrated 💧"
-                     : water>=8 ? "Perfect hydration! 🥰"
-                     : "Good job! Keep sipping 💧";
+  let msg = "Good job! Keep sipping 💧";
+  if(water < 4) msg = "You're low today — drink now 💧";
+  else if(water < 6) msg = "Drink a bit more to stay hydrated 💧";
+  else if(water >= 8) msg = "Perfect hydration! 🥰";
+  tipEl.textContent = msg;
 
   const payload = {
-    section:'water',
-    date,
-    user: currentUser,
-    water,
-    summaryText: `Water: ${water} cups`,
-    details: { water },
-    createdAt: new Date().toISOString()
+    section:'water', date, user: currentUser, water,
+    summaryText:`Water: ${water} cups`,
+    details:{water}, createdAt:new Date().toISOString()
   };
   await postMemory(payload);
   document.getElementById('waterCups').value='';
   loadSummary();
 }
 
-/* ---------- Summary ---------- */
+/* ========= Summary (text + list) ========= */
 async function loadSummary(){
   setLoader(true);
   try{
     const data = await fetchAll();
     const today = new Date().toISOString().slice(0,10);
-    const todayData = data.filter(d=>d.date===today && (!currentUser || d.user===currentUser));
-    if(!todayData.length){ document.getElementById('sumText').textContent='No data yet 💕'; return; }
+    const todayData = data
+      .filter(d=>d.date===today && (!currentUser || d.user===currentUser))
+      .sort((a,b)=> (a.createdAt||'').localeCompare(b.createdAt||''));
+
+    const sumEl = document.getElementById('sumText');
+    const listEl = document.getElementById('todayList');
+
+    if(!todayData.length){
+      sumEl.textContent = 'No data yet 💕';
+      listEl.innerHTML = '';
+      return;
+    }
+
+    // compact summary line
     const w = todayData.find(d=>d.section==='water');
     const h = todayData.find(d=>d.section==='health');
     const d = todayData.find(d=>d.section==='daily');
     let text = '';
-    if(d) text += `Mood: ${d.mood|| (d.details?.mood) || '—'} | `;
+    if(d) text += `Mood: ${d.mood ?? d.details?.mood ?? '—'} | `;
     if(h) text += `Sleep: ${h.sleep ?? h.details?.sleep ?? '—'} hrs | `;
     if(w) text += `Water: ${w.water ?? w.details?.water ?? '—'} cups`;
-    document.getElementById('sumText').textContent = text || 'No data yet 💕';
+    sumEl.textContent = text || 'No data yet 💕';
+
+    // detailed list
+    listEl.innerHTML = '';
+    todayData.forEach(item=>{
+      const row = document.createElement('div');
+      row.className = 'card';
+      const time = item.createdAt ? new Date(item.createdAt).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) : '';
+      const emoji = item.section==='daily' ? '💌' : item.section==='health' ? '🩺' : '💧';
+      const line = item.summaryText || item.text || '';
+      row.innerHTML = `<div style="display:flex;align-items:center;justify-content:space-between;gap:.8rem">
+          <div style="font-weight:800">${emoji} ${item.section.toUpperCase()}</div>
+          <div class="muted">${time}</div>
+        </div>
+        <div class="muted" style="margin-top:.4rem;word-break:break-word">${line}</div>`;
+      listEl.appendChild(row);
+    });
   } finally {
     setLoader(false);
   }
 }
+
+/* ========= Initial ink placement after DOM ready ========= */
+document.addEventListener('DOMContentLoaded', ()=> {
+  // If already logged in from localStorage, autoLogin IIFE handled it.
+  // Otherwise, just set ink to first tab for visual
+  safeMoveInkToActive();
+});
 </script>
 </body>
 </html>
