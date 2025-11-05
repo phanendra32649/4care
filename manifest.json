@@ -1,0 +1,22 @@
+{
+  "name": "Daily Tracker4U 💖",
+  "short_name": "Tracker4U",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#130b1b",
+  "theme_color": "#ff9ecd",
+  "description": "A sweet daily tracker made with love 💕",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
