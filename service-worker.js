@@ -77,31 +77,3 @@ self.addEventListener("fetch", (event) => {
   );
 });
 
-// =============================
-// 💌 Cute System Notifications
-// =============================
-self.addEventListener("message", (event) => {
-  console.log("📩 Message received in SW:", event.data);
-  
-  if (event.data && event.data.type === "SHOW_NOTIFICATION") {
-    const { title, body } = event.data;
-    console.log("🔔 Showing system notification:", title);
-
-    // 💖 Make it pop even when app not open
-    self.registration.showNotification(title, {
-      body,
-      icon: `${BASE_PATH}/icons/android-launchericon-192-192.png`,
-      badge: `${BASE_PATH}/icons/android-launchericon-72-72.png`,
-      vibrate: [200, 100, 200],
-      requireInteraction: true, // ⬅️ stays visible until user closes it
-      tag: "pookie-reminder",   // ⬅️ prevents duplicates
-    });
-  }
-});
-
-// ✅ When user taps the notification → open app
-self.addEventListener("notificationclick", (event) => {
-  event.notification.close();
-  event.waitUntil(clients.openWindow(`${BASE_PATH}/index.html`));
-});
-
