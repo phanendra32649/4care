@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-  <link rel="manifest" href="/care4u-del/manifest.json">
+  <link rel="manifest" href="/4care/manifest.json">
 <meta name="theme-color" content="#ff9aa2">
-<link rel="icon" type="image/png" href="/care4u-del/icons/icon-192x192.png">
-<link rel="apple-touch-icon" href="/care4u-del/icons/icon-192x192.png">
+
+<!-- favicon and PWA icons -->
+<link rel="icon" type="image/png" href="/4care/icons/icon-192x192.png">
+<link rel="apple-touch-icon" href="/4care/icons/icon-192x192.png">
+
 
 <script>
   if ('serviceWorker' in navigator) {
@@ -786,11 +789,12 @@ document.addEventListener('DOMContentLoaded', () => {
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker
-      .register('/care4u-del/service-worker.js')
-      .then(reg => console.log('✅ SW registered:', reg))
-      .catch(err => console.error('❌ SW registration failed:', err));
+      .register('/4care/service-worker.js')
+      .then(reg => console.log('✅ Service Worker registered:', reg))
+      .catch(err => console.error('❌ Service Worker registration failed:', err));
   });
 }
+
 </script>
 </body>
 </html>
