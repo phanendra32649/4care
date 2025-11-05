@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#ff9ecd">
 
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover" />
   <title>Daily Tracker4U</title>
 
   <style>
@@ -58,6 +58,7 @@
     --glass: rgba(255,255,255,.10);
   }
 
+  /* Base */
   * { box-sizing: border-box; }
   html, body { height: 100%; }
   body {
@@ -154,13 +155,14 @@
     width: 25%;
   }
 
-  /* ===== Views & transitions ===== */
+  /* ===== Views & transitions (with tab fix) ===== */
   .views { position: relative; min-height: 320px; }
   .view {
     position:absolute; inset:0; opacity:0; transform: translateX(25px) scale(.98);
     transition: opacity .28s ease, transform .28s ease; pointer-events: none;
+    display: none; /* important fix */
   }
-  .view.active { opacity:1; transform:none; pointer-events:auto; }
+  .view.active { opacity:1; transform:none; pointer-events:auto; display: block; }
 
   /* ===== Inputs & buttons ===== */
   .input, .select, .textarea {
@@ -218,7 +220,8 @@
     background: #24162f; border:1px solid var(--panel-border); color: var(--text);
     padding:.7rem .9rem; border-radius:12px; box-shadow: var(--shadow-2);
     animation: toastIn .18s ease;
-    max-width: 80vw;
+    max-width: 86vw;
+    word-break: break-word;
   }
   .toast.ok { border-color: rgba(33,193,122,.5) }
   .toast.err { border-color: rgba(255,85,119,.5) }
@@ -525,7 +528,7 @@ document.getElementById('logoutBtn').addEventListener('click', ()=>{
   }
 })();
 
-/* ========= Tabs with ink ========= */
+/* ========= Tabs with ink (and reliable display toggle) ========= */
 const tabs = Array.from(document.querySelectorAll('.tab'));
 const views = {
   home: document.getElementById('home'),
@@ -553,16 +556,26 @@ function activeTabIndex(){
   return idx >= 0 ? idx : 0;
 }
 function safeMoveInkToActive(){
+  if(!ink) return;
   if(getComputedStyle(ink).display === 'none') return; // ink hidden on mobile
   requestAnimationFrame(()=> moveInk(activeTabIndex()));
 }
 
+/* display toggle fix */
+function showView(tabId){
+  Object.entries(views).forEach(([k,v])=>{
+    if(k===tabId){
+      v.classList.add('active'); v.style.display='block';
+    } else {
+      v.classList.remove('active'); v.style.display='none';
+    }
+  });
+}
 tabs.forEach((btn,idx)=>{
   btn.addEventListener('click', ()=>{
     tabs.forEach(b=>b.classList.remove('active'));
     btn.classList.add('active');
-    Object.values(views).forEach(v=>v.classList.remove('active'));
-    views[btn.dataset.tab].classList.add('active');
+    showView(btn.dataset.tab);
     safeMoveInkToActive();
   });
 });
@@ -624,7 +637,7 @@ async function fetchAll(){
   }
 }
 
-/* ========= Save handlers ========= */
+/* ========= Save handlers (detailed payloads) ========= */
 // DAILY
 async function saveDaily(){
   const date = document.getElementById('dailyDate').value || new Date().toISOString().slice(0,10);
@@ -748,8 +761,8 @@ async function loadSummary(){
 
 /* ========= Initial ink placement after DOM ready ========= */
 document.addEventListener('DOMContentLoaded', ()=> {
-  // If already logged in from localStorage, autoLogin IIFE handled it.
-  // Otherwise, just set ink to first tab for visual
+  // if logged in, autoLogin already switched view
+  // ensure ink is placed for current active tab
   safeMoveInkToActive();
 });
 </script>
