@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <!-- 💖 Favicon -->
   <link rel="icon" type="image/png" href="favicon.png" sizes="32x32">
@@ -8,263 +10,268 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Daily Tracker4U</title>
+  <title>💖 Daily Tracker 💖</title>
 
   <style>
-  :root {
-    --pink:#ff72b1; --pink-soft:#ff9ecd; --purple:#8b5cf6;
-    --bg:#0f0a18; --card:#1b112a; --border:rgba(255,255,255,.18);
-    --text:#f7e9f3; --muted:#c8b7c4; --success:#21c17a; --error:#ff5577;
-    --shadow:0 20px 40px rgba(0,0,0,.45); --radius:18px;
+  :root{
+    --pink:#ff72b1;--pink-soft:#ff9ecd;--purple:#8b5cf6;--bg:#0f0a18;
+    --card:#1b112a;--glass:rgba(255,255,255,.12);--border:rgba(255,255,255,.18);
+    --text:#f7e9f3;--muted:#c8b7c4;--success:#21c17a;--warn:#ffb020;--error:#ff5577;
+    --shadow:0 20px 40px rgba(0,0,0,.45);--radius:18px;
   }
-  * { box-sizing:border-box; margin:0; padding:0; }
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:ui-sans-serif,system-ui,"Poppins",Segoe UI,Roboto,Arial;
+  color:var(--text);
+  background:
+    radial-gradient(80vw 80vw at -10% -10%, #3a1246 0%, transparent 50%),
+    radial-gradient(60vw 60vw at 110% -10%, #2b1a63 0%, transparent 50%),
+    radial-gradient(100vw 80vw at 50% 120%, #52123d 0%, #130b1b 60%);
+  min-height:100vh; overflow-x:hidden;
+}
 
-  html,body {
-    height:100%;
-    font-family:"Poppins", sans-serif;
-    color:var(--text);
-    background:
-      radial-gradient(80vw 80vw at -10% -10%, #3a1246 0%, transparent 50%),
-      radial-gradient(60vw 60vw at 110% -10%, #2b1a63 0%, transparent 50%),
-      radial-gradient(100vw 80vw at 50% 120%, #52123d 0%, #130b1b 60%);
-    min-height:100vh;
-    overflow-x:hidden;
-    scroll-behavior:smooth;
-  }
+/* Floating particles (subtle, pro) */
+.bg-particles{position:fixed; inset:0; pointer-events:none; z-index:0;}
+.p{position:absolute; width:8px; height:8px; border-radius:50%;
+   background:radial-gradient(circle,#ffd6ec,transparent 70%); opacity:.35;
+   filter:blur(.2px); animation:float 16s linear infinite;}
+@keyframes float{from{transform:translateY(0)}to{transform:translateY(-110vh)}}
 
-  /* Floating Hearts */
-  .hearts { position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
-  .heart {
-    position:absolute; bottom:-10%;
-    color:#ff9ecd; opacity:0.4;
-    animation:floatHearts 10s linear infinite;
-    font-size:1.4rem;
-  }
-  @keyframes floatHearts {
-    0% { transform:translateY(0) rotate(0); opacity:0.5; }
-    50% { opacity:1; }
-    100% { transform:translateY(-110vh) rotate(360deg); opacity:0; }
-  }
+/* Header */
+header{
+  position:sticky; top:0; z-index:10;
+  backdrop-filter:saturate(160%) blur(10px);
+  background:linear-gradient(90deg,rgba(255,114,177,.25),rgba(139,92,246,.25));
+  border-bottom:1px solid var(--border);
+  box-shadow:var(--shadow);
+}
+.header-inner{
+  max-width:1000px; margin:0 auto; padding:.9rem 1rem;
+  display:flex; align-items:center; gap:.8rem;
+}
+.logo{
+  width:42px; height:42px; border-radius:12px; display:grid; place-items:center;
+  background:linear-gradient(135deg,var(--pink-soft),#ff78ca);
+  box-shadow:0 10px 25px rgba(255,120,202,.35);
+  animation:heartbeat 2.5s ease-in-out infinite;
+}
+.logo span{font-size:22px}
+@keyframes heartbeat{0%,100%{transform:scale(1)} 45%{transform:scale(1.08)} 60%{transform:scale(.98)}}
+.title{font-weight:800; letter-spacing:.3px}
+.subtitle{color:var(--muted); font-size:.9rem}
 
-  /* Header */
-  header {
-    position:sticky; top:0; z-index:10;
-    background:linear-gradient(90deg,rgba(255,114,177,.25),rgba(139,92,246,.25));
-    border-bottom:1px solid var(--border);
-    backdrop-filter:blur(12px);
-    box-shadow:var(--shadow);
-  }
-  .header-inner {
-    max-width:1000px; margin:0 auto; padding:1rem;
-    display:flex; align-items:center; gap:.8rem;
-  }
-  .logo {
-    width:44px; height:44px; border-radius:12px;
-    display:grid; place-items:center;
-    background:linear-gradient(135deg,var(--pink-soft),#ff78ca);
-    box-shadow:0 10px 25px rgba(255,120,202,.35);
-    animation:heartbeat 2.5s ease-in-out infinite;
-  }
-  .logo span { font-size:22px; }
-  @keyframes heartbeat {
-    0%,100% { transform:scale(1); }
-    45% { transform:scale(1.1); }
-    60% { transform:scale(.95); }
-  }
-  .title { font-weight:800; letter-spacing:.4px; font-size:1.2rem; }
-  .subtitle { color:var(--muted); font-size:.9rem; }
+/* Container */
+.container{max-width:1000px; margin:0 auto; padding:1rem; position:relative; z-index:1}
 
-  /* Container */
-  .container { max-width:1000px; margin:0 auto; padding:1rem; position:relative; z-index:1; }
+/* Glass cards */
+.card{
+  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));
+  border:1px solid var(--border);
+  border-radius:var(--radius); box-shadow:var(--shadow);
+  padding:1.2rem;
+}
 
-  /* Cards */
-  .card {
-    background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));
-    border:1px solid var(--border);
-    border-radius:var(--radius);
-    box-shadow:var(--shadow);
-    padding:1.3rem;
-    animation:fadeIn 1.2s ease;
-  }
+/* Tabs (with sliding indicator) */
+.tabs{
+  margin:1rem 0; display:flex; align-items:center; gap:.6rem;
+  background:rgba(255,255,255,.06);
+  border:1px solid var(--border); border-radius:999px; padding:.35rem;
+}
+.tab{
+  flex:1; position:relative; z-index:1;
+  background:transparent; color:var(--muted);
+  border:none; padding:.7rem .8rem; border-radius:999px; cursor:pointer;
+  font-weight:700; letter-spacing:.3px;
+}
+.tab.active{color:#201224}
+.tab-ink{
+  position:absolute; height:38px; border-radius:999px; background:linear-gradient(90deg,#ffd6ec,#ff9ecd);
+  box-shadow:0 10px 25px rgba(255,150,200,.35);
+  transition:transform .28s ease, width .28s ease; z-index:0;
+}
 
-  /* Inputs */
-  .input, .select, .textarea {
-    width:100%; background:rgba(255,255,255,.08); color:var(--text);
-    border:1px solid var(--border); border-radius:12px; padding:.9rem 1rem;
-    outline:none; transition:border .2s, box-shadow .2s; font-size:1rem;
-  }
-  .textarea { min-height:120px; resize:vertical; }
-  .input:focus, .select:focus, .textarea:focus {
-    border-color:#ffacd5; box-shadow:0 0 0 4px rgba(255,172,213,.15);
-  }
+/* Views with slide transitions */
+.views{position:relative; min-height:320px}
+.view{
+  position:absolute; inset:0; opacity:0; transform:translateX(25px) scale(.98);
+  transition:opacity .28s ease, transform .28s ease; pointer-events:none;
+}
+.view.active{opacity:1; transform:translateX(0) scale(1); pointer-events:auto}
 
-  /* Buttons */
-  .btn {
-    width:100%; padding:.9rem 1rem; border:none; border-radius:12px; cursor:pointer;
-    color:#130b1b; font-weight:800; letter-spacing:.4px;
-    background:linear-gradient(90deg,#ffd6ec,#ff9ecd);
-    box-shadow:0 10px 25px rgba(255,150,200,.35);
-    transition:transform .15s ease, filter .2s;
-  }
-  .btn:hover { transform:translateY(-1px); }
-  .btn:active { transform:scale(.97); }
+/* Inputs */
+.input, .select, .textarea{
+  width:100%; background:rgba(255,255,255,.06); color:var(--text);
+  border:1px solid var(--border); border-radius:12px; padding:.9rem 1rem;
+  outline:none; transition:border .2s, box-shadow .2s; font-size:1rem;
+}
+.input:focus,.select:focus,.textarea:focus{border-color:#ffacd5; box-shadow:0 0 0 4px rgba(255,172,213,.15)}
+.textarea{min-height:120px; resize:vertical}
 
-  /* Animations */
-  @keyframes fadeIn {
-    from { opacity:0; transform:translateY(20px); }
-    to { opacity:1; transform:translateY(0); }
-  }
+/* Buttons */
+.btn{
+  width:100%; padding:.9rem 1rem; border:none; border-radius:12px; cursor:pointer;
+  color:#130b1b; font-weight:800; letter-spacing:.4px;
+  background:linear-gradient(90deg,#ffd6ec,#ff9ecd);
+  box-shadow:0 10px 25px rgba(255,150,200,.35); transition:transform .15s ease, filter .2s;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(0) scale(.98)}
 
-  /* Toast */
-  .toast-wrap {
-    position:fixed; right:12px; bottom:12px;
-    display:grid; gap:.5rem; z-index:999;
-  }
-  .toast {
-    background:#24162f; border:1px solid var(--border); color:var(--text);
-    padding:.7rem .9rem; border-radius:12px;
-    box-shadow:var(--shadow);
-    animation:toastIn .3s ease;
-  }
-  .toast.ok { border-color:rgba(33,193,122,.5); }
-  .toast.err { border-color:rgba(255,85,119,.5); }
-  @keyframes toastIn { from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:translateY(0)} }
+/* Login layout */
+.login-wrap{display:grid; place-items:center; min-height:calc(100vh - 84px); padding:1rem}
+.login-card{max-width:420px; width:100%; display:grid; gap:1rem; position:relative; overflow:hidden}
+.login-brand{display:flex; align-items:center; gap:.8rem}
+.login-brand .logo{width:48px;height:48px}
+.login-actions{display:flex; gap:.6rem; align-items:center; justify-content:space-between}
+.inline{display:flex; align-items:center; gap:.6rem}
+.muted{color:var(--muted); font-size:.9rem}
 
-  /* Loader */
-  .loader {
-    position:fixed; left:0; top:0; height:3px; width:0;
-    background:linear-gradient(90deg,#ff9ecd,#8b5cf6);
-    z-index:9999; box-shadow:0 0 12px rgba(255,150,200,.7);
-  }
+/* Show/Hide password */
+.pw{position:relative}
+.pw .toggle{
+  position:absolute; right:10px; top:50%; transform:translateY(-50%);
+  background:transparent; border:none; color:var(--muted); cursor:pointer; font-size:.95rem;
+}
 
-  /* Login Page */
-  .login-wrap { display:grid; place-items:center; min-height:calc(100vh - 84px); padding:1rem; }
-  .login-card { max-width:420px; width:100%; display:grid; gap:1rem; }
-  .login-brand { display:flex; align-items:center; gap:.8rem; justify-content:center; }
-  .muted { color:var(--muted); font-size:.9rem; text-align:center; }
+/* Symptoms chips */
+.chips{display:flex; flex-wrap:wrap; gap:.5rem}
+.chip{background:rgba(255,255,255,.08); border:1px solid var(--border); border-radius:999px; padding:.4rem .7rem}
+.chip input{transform:translateY(1px); margin-right:.35rem}
 
-  @media (max-width:600px) {
-    .header-inner { flex-direction:column; align-items:center; text-align:center; }
-    .login-card { padding:1rem; }
-  }
-  </style>
+/* Footer (non-blocking, elegant) */
+footer{
+  padding:1rem; text-align:center; color:var(--muted)
+}
+
+/* Toasts */
+.toast-wrap{position:fixed; right:12px; bottom:12px; display:grid; gap:.5rem; z-index:999}
+.toast{
+  background:#24162f; border:1px solid var(--border); color:var(--text);
+  padding:.7rem .9rem; border-radius:12px; box-shadow:var(--shadow);
+  animation:toastIn .18s ease;
+}
+.toast.ok{border-color:rgba(33,193,122,.5)}
+.toast.err{border-color:rgba(255,85,119,.5)}
+@keyframes toastIn{from{opacity:0; transform:translateY(8px)}to{opacity:1; transform:translateY(0)}}
+
+/* Loader bar */
+.loader{position:fixed; left:0; top:0; height:3px; width:0; background:linear-gradient(90deg,#ff9ecd,#8b5cf6); z-index:9999; box-shadow:0 0 12px rgba(255,150,200,.7);}
+
+/* Responsive */
+@media (max-width:720px){
+  .header-inner{padding:.8rem .8rem}
+  .title{font-size:1.05rem}
+  .login-card{padding:1rem}
+}
+</style>
 </head>
 <body>
 
-<!-- Floating hearts -->
-<div class="hearts" id="hearts"></div>
+<!-- Background particles -->
+<div class="bg-particles" id="particles"></div>
 
 <header>
   <div class="header-inner">
     <div class="logo"><span>💖</span></div>
     <div>
-      <div class="title">Pookie’s Daily Tracker</div>
-      <div class="subtitle">Sweet • Private • Loving 💌</div>
+      <div class="title">Daily Tracker</div>
+      <div class="subtitle">Sweet, simple & private</div>
     </div>
   </div>
 </header>
 
 <div class="container">
+
   <!-- LOGIN -->
   <div id="loginView" class="login-wrap">
     <div class="card login-card">
       <div class="login-brand">
         <div class="logo"><span>💞</span></div>
         <div>
-          <div class="title">Welcome, My Pookie!</div>
-          <div class="subtitle">Sign in to share your lovely moments 💫</div>
+          <div class="title">Welcome back</div>
+          <div class="subtitle">Sign in to continue</div>
         </div>
       </div>
 
       <div>
         <label class="muted">Username</label>
-        <input id="username" class="input" placeholder="Enter username">
+        <input id="username" class="input" placeholder="Enter username" autocomplete="username">
       </div>
 
-      <div>
+      <div class="pw">
         <label class="muted">Password</label>
-        <input id="password" class="input" type="password" placeholder="••••••••">
+        <input id="password" class="input" placeholder="••••••••" type="password" autocomplete="current-password">
+        <button class="toggle" type="button" onclick="togglePw()">👁️</button>
       </div>
 
-      <div style="text-align:center;">
-        <button class="btn" onclick="login()">Login 💕</button>
+      <div class="login-actions">
+        <label class="inline muted"><input id="remember" type="checkbox"> Remember me</label>
+        <button class="btn" onclick="login()">Login</button>
       </div>
 
-      <p id="loginMsg" class="muted"></p>
+      <div id="loginMsg" class="muted"></div>
     </div>
   </div>
+
   <!-- APP -->
-  <div id="appView" style="display:none; animation:fadeIn 1.2s ease;">
-    <!-- 🌈 Tabs -->
-    <div class="card tabs" style="position:relative; display:flex; align-items:center; gap:.6rem;">
-      <div id="tabInk" class="tab-ink" style="position:absolute; height:38px; border-radius:999px; background:linear-gradient(90deg,#ffd6ec,#ff9ecd); box-shadow:0 10px 25px rgba(255,150,200,.35); transition:transform .28s ease, width .28s ease; z-index:0; width:25%;"></div>
+  <div id="appView" style="display:none">
+    <div class="tabs card" style="position:relative">
+      <div id="tabInk" class="tab-ink" style="width:25%"></div>
       <button class="tab active" data-tab="home">🌅 Home</button>
       <button class="tab" data-tab="daily">💌 Daily</button>
       <button class="tab" data-tab="health">🩺 Health</button>
       <button class="tab" data-tab="water">💧 Water</button>
     </div>
 
-    <!-- 🌸 Views Container -->
-    <div class="views" style="position:relative; min-height:320px;">
-      <!-- 🌅 HOME -->
-      <div id="home" class="view active" style="animation:fadeIn 1s ease;">
-        <div class="card" style="margin-bottom:1rem;">
-          <h2 id="greetText" style="margin:.2rem 0 0.4rem 0;">🌸 Good Day!</h2>
-          <p class="muted">Welcome back, sweetheart 💖</p>
+    <div class="views">
+      <!-- HOME -->
+      <div id="home" class="view active">
+        <div class="card" style="margin-bottom:1rem">
+          <h2 id="greetText" style="margin:.2rem 0 0.4rem 0">🌸 Good Day!</h2>
+          <div class="muted">Welcome back💖</div>
         </div>
-
         <div class="card">
-          <h3>Today’s Summary 🌈</h3>
-          <div id="sumText" class="muted" style="margin-top:.5rem;">Loading...</div>
+          <h3 style="margin-top:0">Today’s Summary 🌈</h3>
+          <div id="sumText" class="muted">Loading...</div>
         </div>
       </div>
 
-      <!-- 💌 DAILY -->
-      <div id="daily" class="view" style="animation:fadeIn 1s ease;">
+      <!-- DAILY -->
+      <div id="daily" class="view">
         <div class="card">
-          <h2>💌 Daily Note</h2>
-          <p class="muted" style="margin-bottom:.8rem;">Write down what made your day special 💕</p>
-          <div style="display:grid; gap:.8rem;">
+          <h2 style="margin-top:0">💌 Daily Note</h2>
+          <div style="display:grid; gap:.8rem">
             <input type="date" id="dailyDate" class="input"/>
-            <textarea id="dailyText" class="textarea" placeholder="Ivala emaindho ikkada rasko... ✍️"></textarea>
+            <textarea id="dailyText" class="textarea" placeholder="Ivala emaindho ikkada rasko....."></textarea>
             <select id="dailyMood" class="select">
-              <option value="">Select Mood</option>
-              <option>🥰 Happy</option>
-              <option>😴 Sleepy</option>
-              <option>😇 Peaceful</option>
-              <option>🤒 Not well</option>
-              <option>🤩 Excited</option>
+              <option value="">Mood</option>
+              <option>🥰 Happy</option><option>😴 Sleepy</option><option>😇 Peaceful</option>
+              <option>🤒 Not well</option><option>🤩 Excited</option>
             </select>
             <button class="btn" onclick="saveDaily()">Save 💖</button>
           </div>
         </div>
       </div>
 
-      <!-- 🩺 HEALTH -->
-      <div id="health" class="view" style="animation:fadeIn 1s ease;">
+      <!-- HEALTH -->
+      <div id="health" class="view">
         <div class="card">
-          <h2>🩺 Health Tracker</h2>
-          <p class="muted" style="margin-bottom:.8rem;">Update how you feel, darling 🌼</p>
-          <div style="display:grid; gap:.8rem;">
+          <h2 style="margin-top:0">🩺 Health Tracker</h2>
+          <div style="display:grid; gap:.8rem">
             <label class="muted">😊 Feeling</label>
             <select id="feeling" class="select">
               <option value="">Select</option>
-              <option>Fine</option>
-              <option>Tired</option>
-              <option>Sick</option>
-              <option>Cramps</option>
-              <option>Headache</option>
+              <option>Fine</option><option>Tired</option><option>Sick</option><option>Cramps</option><option>Headache</option>
             </select>
 
             <label class="muted">😴 Sleep (hours)</label>
             <input type="number" id="sleep" min="0" max="24" class="input" placeholder="e.g. 7"/>
 
-            <label class="muted">🍽️ Tinnava (ate properly?)</label>
+            <label class="muted">🍽️ Tinnava</label>
             <select id="appetite" class="select">
-              <option value="">Select</option>
-              <option>Yes</option>
-              <option>No</option>
-              <option>Tinta</option>
+              <option value="">Select</option><option>Yes</option><option>No</option><option>Tinta</option>
             </select>
 
             <label class="muted">💭 Symptoms</label>
@@ -273,285 +280,280 @@
               <label class="chip"><input type="checkbox" value="Headache">Headache</label>
               <label class="chip"><input type="checkbox" value="Cold">Cold</label>
               <label class="chip"><input type="checkbox" value="Stress">Stress</label>
-              <label class="chip"><input type="checkbox" value="Back pain">Back Pain</label>
+              <label class="chip"><input type="checkbox" value="Back pain">Any Pain</label>
             </div>
 
             <button class="btn" onclick="saveHealth()">Save 🩷</button>
-            <div id="healthTip" class="muted" style="margin-top:.5rem;"></div>
+            <div id="healthTip" class="muted"></div>
           </div>
         </div>
       </div>
 
-      <!-- 💧 WATER -->
-      <div id="water" class="view" style="animation:fadeIn 1s ease;">
+      <!-- WATER -->
+      <div id="water" class="view">
         <div class="card">
-          <h2>💧 Water Tracker</h2>
-          <p class="muted" style="margin-bottom:.8rem;">Track how much water you drank 💦</p>
-          <div style="display:grid; gap:.8rem;">
+          <h2 style="margin-top:0">💧 Water Tracker</h2>
+          <div style="display:grid; gap:.8rem">
             <input type="number" id="waterCups" min="0" max="20" class="input" placeholder="e.g. 8"/>
             <button class="btn" onclick="saveWater()">Save 💧</button>
-            <div id="waterTip" class="muted" style="margin-top:.5rem;"></div>
+            <div id="waterTip" class="muted"></div>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </div>
 
-<footer style="text-align:center; color:var(--muted); padding:1rem;">
-  💗 Made with Love & Care — <span style="color:#ffbce6;">by Nannaa</span>
-</footer>
+<footer>💗 Made with love & care — <span class="muted">-Nannaa</span></footer>
 
-<!-- Toasts + Loader -->
+<!-- System UI: loader + toasts -->
 <div class="loader" id="loader"></div>
 <div class="toast-wrap" id="toasts"></div>
+
 <script>
-/* ---------- CONFIG ---------- */
-const API = "https://fourcare.onrender.com/memories";  // ✅ Your live backend
-const allowedUsers = { "8367226377": "Chinnuu19", "admin": "adm" };
+/* ---------- Config ---------- */
+const API = "https://fourcare.onrender.com/memories";
+const allowedUsers = {"8367226377":"Chinnuu19","admin":"adm"};
 let currentUser = null;
 
-/* ---------- HELPER FUNCTIONS ---------- */
-function toast(msg, ok=true) {
-  const t = document.createElement("div");
-  t.className = "toast " + (ok ? "ok" : "err");
+/* ---------- Particles ---------- */
+const pr = document.getElementById('particles');
+for(let i=0;i<20;i++){
+  const b = document.createElement('div');
+  b.className='p';
+  b.style.left = (Math.random()*100)+'%';
+  b.style.bottom = (-10 + Math.random()*20)+'%';
+  b.style.animationDuration = (14 + Math.random()*10)+'s';
+  b.style.width = b.style.height = (6 + Math.random()*8)+'px';
+  pr.appendChild(b);
+}
+
+/* ---------- Helpers ---------- */
+function toast(msg, ok=true){
+  const t = document.createElement('div');
+  t.className = 'toast ' + (ok ? 'ok':'err');
   t.textContent = msg;
-  document.getElementById("toasts").appendChild(t);
-  setTimeout(() => t.remove(), 3000);
+  document.getElementById('toasts').appendChild(t);
+  setTimeout(()=> t.remove(), 3000);
+}
+function setLoader(active){
+  const el = document.getElementById('loader');
+  el.style.transition = 'width .25s ease';
+  el.style.width = active ? '70%' : '100%';
+  if(!active) setTimeout(()=> el.style.width='0', 250);
+}
+function togglePw(){
+  const el = document.getElementById('password');
+  el.type = el.type === 'password' ? 'text' : 'password';
 }
 
-function setLoader(active) {
-  const el = document.getElementById("loader");
-  el.style.transition = "width .3s ease";
-  el.style.width = active ? "70%" : "100%";
-  if (!active) setTimeout(() => el.style.width = "0", 300);
-}
-
-/* ---------- LOGIN ---------- */
-function login() {
-  const u = document.getElementById("username").value.trim();
-  const p = document.getElementById("password").value.trim();
-  if (!u || !p) return toast("Please enter username & password 💔", false);
-
-  if (allowedUsers[u] === p) {
+/* ---------- Login ---------- */
+function login(){
+  const u = document.getElementById('username').value.trim();
+  const p = document.getElementById('password').value.trim();
+  const remember = document.getElementById('remember')?.checked;
+  if(!u || !p){ document.getElementById('loginMsg').textContent='Enter username & password'; return; }
+  if(allowedUsers[u] === p){
     currentUser = u;
-    document.getElementById("loginView").style.display = "none";
-    document.getElementById("appView").style.display = "block";
-    toast("Welcome back, Pookie 💞", true);
+    if(remember){ localStorage.setItem('dt_user', u); }
+    document.getElementById('loginView').style.display='none';
+    document.getElementById('appView').style.display='block';
     setGreeting();
     moveInk(0);
     loadSummary();
-  } else {
-    toast("Invalid login details 💔", false);
+    toast('Logged in ✨', true);
+  }else{
+    document.getElementById('loginMsg').textContent='Invalid login 💔';
+    toast('Login failed', false);
   }
 }
-
-/* ---------- AUTO LOGIN (Optional) ---------- */
-(function autoLogin() {
-  const saved = localStorage.getItem("pookie_user");
-  if (saved && allowedUsers[saved]) {
-    currentUser = saved;
-    document.getElementById("loginView").style.display = "none";
-    document.getElementById("appView").style.display = "block";
+(function autoLogin(){
+  const u = localStorage.getItem('dt_user');
+  if(u && allowedUsers[u]){
+    currentUser = u;
+    document.getElementById('loginView').style.display='none';
+    document.getElementById('appView').style.display='block';
     setGreeting();
     moveInk(0);
     loadSummary();
   }
 })();
 
-/* ---------- TABS ---------- */
-const tabs = Array.from(document.querySelectorAll(".tab"));
+/* ---------- Tabs with ink ---------- */
+const tabs = Array.from(document.querySelectorAll('.tab'));
 const views = {
-  home: document.getElementById("home"),
-  daily: document.getElementById("daily"),
-  health: document.getElementById("health"),
-  water: document.getElementById("water")
+  home: document.getElementById('home'),
+  daily: document.getElementById('daily'),
+  health: document.getElementById('health'),
+  water: document.getElementById('water')
 };
-const ink = document.getElementById("tabInk");
+const ink = document.getElementById('tabInk');
 
-function moveInk(index) {
-  const wrap = document.querySelector(".tabs");
-  const btns = wrap.querySelectorAll(".tab");
-  const target = btns[index];
+function moveInk(index){
+  const wrap = document.querySelector('.tabs');
+  const buttons = wrap.querySelectorAll('.tab');
+  const target = buttons[index];
   const rect = target.getBoundingClientRect();
   const wrapRect = wrap.getBoundingClientRect();
-  ink.style.width = rect.width + "px";
-  ink.style.transform = `translateX(${rect.left - wrapRect.left}px)`;
+  const w = rect.width;
+  const x = rect.left - wrapRect.left;
+  ink.style.width = w + 'px';
+  ink.style.transform = `translateX(${x}px)`;
 }
-
-tabs.forEach((btn, idx) => {
-  btn.addEventListener("click", () => {
-    tabs.forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    Object.values(views).forEach(v => v.classList.remove("active"));
-    views[btn.dataset.tab].classList.add("active");
+tabs.forEach((btn,idx)=>{
+  btn.addEventListener('click', ()=>{
+    tabs.forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    Object.values(views).forEach(v=>v.classList.remove('active'));
+    views[btn.dataset.tab].classList.add('active');
     moveInk(idx);
   });
 });
 
-/* ---------- GREETING ---------- */
-function setGreeting() {
+/* ---------- Greeting ---------- */
+function setGreeting(){
   const h = new Date().getHours();
-  let text = "Hello, 💕";
-  if (h < 12) text = "☀️ Good Morning, Chinnuu!";
-  else if (h < 18) text = "🌸 Good Afternoon, my love!";
-  else text = "🌙 Good Evening, sweetheart!";
-  document.getElementById("greetText").textContent = text;
+  let text = "Hello,💕";
+  if(h<12) text="☀️ Good Morning Chinnuu!";
+  else if(h<18) text="🌸 Good Afternoon Chinnuu!";
+  else text="🌙 Good Evening Chinnuu!";
+  document.getElementById('greetText').textContent = text;
 }
 
-/* ---------- BACKEND CONNECTION ---------- */
-async function postMemory(payload) {
+/* ---------- API ---------- */
+async function postMemory(payload){
   setLoader(true);
-  try {
+  try{
     const res = await fetch(API, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
       body: JSON.stringify(payload)
     });
-    if (!res.ok) throw new Error("Bad response");
-    toast("Saved successfully 💖", true);
-  } catch (e) {
+    if(!res.ok) throw new Error('Bad response');
+    toast('Saved ✅', true);
+  }catch(e){
     console.error(e);
-    toast("Could not connect to server 😢", false);
-  } finally {
+    toast('Save failed', false);
+  }finally{
     setLoader(false);
   }
 }
-
-async function fetchAll() {
-  try {
+async function fetchAll(){
+  try{
     const res = await fetch(API);
-    if (!res.ok) throw new Error("Bad response");
+    if(!res.ok) throw new Error('Bad response');
     return await res.json();
-  } catch (e) {
+  }catch(e){
     console.error(e);
-    toast("Could not fetch data 😢", false);
+    toast('Load failed', false);
     return [];
   }
 }
 
-/* ---------- SAVE: DAILY ---------- */
-async function saveDaily() {
-  const date = document.getElementById("dailyDate").value || new Date().toISOString().slice(0, 10);
-  const text = document.getElementById("dailyText").value.trim();
-  const mood = document.getElementById("dailyMood").value;
-  if (!text) return toast("Write something lovely first 💌", false);
+/* ---------- Saves (detailed, professional payloads) ---------- */
+// DAILY
+async function saveDaily(){
+  const date = document.getElementById('dailyDate').value || new Date().toISOString().slice(0,10);
+  const text = document.getElementById('dailyText').value.trim();
+  const mood = document.getElementById('dailyMood').value;
+  if(!text){ toast('Write something 💌', false); return; }
 
   const payload = {
-    section: "daily",
+    section: 'daily',
     date,
     user: currentUser,
     mood,
     text,
+    summaryText: `Note (${mood||'—'}): ${text.slice(0,80)}${text.length>80?'...':''}`,
     details: { mood, text },
     createdAt: new Date().toISOString()
   };
   await postMemory(payload);
-  document.getElementById("dailyText").value = "";
-  document.getElementById("dailyMood").value = "";
+  document.getElementById('dailyText').value='';
+  document.getElementById('dailyMood').value='';
   loadSummary();
 }
 
-/* ---------- SAVE: HEALTH ---------- */
-async function saveHealth() {
-  const date = new Date().toISOString().slice(0, 10);
-  const feeling = document.getElementById("feeling").value;
-  const sleep = parseFloat(document.getElementById("sleep").value || 0);
-  const appetite = document.getElementById("appetite").value;
-  const symptoms = [...document.querySelectorAll(".chips input:checked")].map(cb => cb.value);
+// HEALTH
+async function saveHealth(){
+  const date = new Date().toISOString().slice(0,10);
+  const feeling = document.getElementById('feeling').value;
+  const sleep = parseFloat(document.getElementById('sleep').value||0);
+  const appetite = document.getElementById('appetite').value;
+  const symptoms = [...document.querySelectorAll('.chips input:checked')].map(cb=>cb.value);
 
-  const tips = [];
-  if (sleep && sleep < 6) tips.push("Try to rest a bit more tonight 😴");
-  else if (sleep > 9) tips.push("Plenty of sleep! Keep your rhythm 🌸");
-  if (feeling === "Tired" || feeling === "Cramps") tips.push("Gentle stretching or warm tea might help 💕");
-  if (appetite === "Low") tips.push("Eat small healthy meals today 🍎");
-  if (symptoms.includes("Stress")) tips.push("Take deep breaths and relax, Pookie 🌼");
+  const tips=[];
+  if(sleep && sleep<6) tips.push("Try to rest a bit more tonight 😴");
+  else if(sleep>9) tips.push("Plenty of sleep! Keep your rhythm 🌸");
+  if(feeling==="Tired"||feeling==="Cramps") tips.push("Gentle stretching or warm tea might help 💕");
+  if(appetite==="Low") tips.push("Eat small healthy meals today 🍎");
+  if(symptoms.includes("Stress")) tips.push("Take deep breaths and relax, Pookie 🌼");
+  document.getElementById('healthTip').textContent = tips.join(' ');
 
-  document.getElementById("healthTip").textContent = tips.join(" ");
   const payload = {
-    section: "health",
+    section:'health',
     date,
     user: currentUser,
-    feeling,
-    sleep,
-    appetite,
-    symptoms,
-    details: { feeling, sleep, appetite, symptoms, tips },
+    feeling, sleep, appetite, symptoms,
+    summaryText: `Health: feeling ${feeling||'—'}, sleep ${sleep||0}h, appetite ${appetite||'—'}, symptoms ${symptoms.join(', ')||'—'}`,
+    details: { feeling, sleep, appetite, symptoms, suggestions: tips },
     createdAt: new Date().toISOString()
   };
   await postMemory(payload);
 
-  document.getElementById("feeling").value = "";
-  document.getElementById("sleep").value = "";
-  document.getElementById("appetite").value = "";
-  document.querySelectorAll(".chips input:checked").forEach(cb => cb.checked = false);
+  // clear
+  document.getElementById('feeling').value='';
+  document.getElementById('sleep').value='';
+  document.getElementById('appetite').value='';
+  document.querySelectorAll('.chips input:checked').forEach(cb=>cb.checked=false);
   loadSummary();
 }
 
-/* ---------- SAVE: WATER ---------- */
-async function saveWater() {
-  const date = new Date().toISOString().slice(0, 10);
-  const water = parseFloat(document.getElementById("waterCups").value || 0);
-  if (!water) return toast("Enter your water intake 💧", false);
+// WATER
+async function saveWater(){
+  const date = new Date().toISOString().slice(0,10);
+  const water = parseFloat(document.getElementById('waterCups').value||0);
+  if(!water){ toast('Enter water intake 💧', false); return; }
 
-  const tipEl = document.getElementById("waterTip");
-  if (water < 6) tipEl.textContent = "Drink more water to stay hydrated 💧";
-  else if (water >= 8) tipEl.textContent = "Perfect hydration! 🥰";
-  else tipEl.textContent = "Good job! Keep sipping 💦";
+  const tipEl = document.getElementById('waterTip');
+  tipEl.textContent = water<6 ? "Drink a bit more water to stay hydrated 💧"
+                     : water>=8 ? "Perfect hydration! 🥰"
+                     : "Good job! Keep sipping 💧";
 
   const payload = {
-    section: "water",
+    section:'water',
     date,
     user: currentUser,
     water,
+    summaryText: `Water: ${water} cups`,
     details: { water },
     createdAt: new Date().toISOString()
   };
   await postMemory(payload);
-  document.getElementById("waterCups").value = "";
+  document.getElementById('waterCups').value='';
   loadSummary();
 }
 
-/* ---------- LOAD SUMMARY ---------- */
-async function loadSummary() {
+/* ---------- Summary ---------- */
+async function loadSummary(){
   setLoader(true);
-  try {
+  try{
     const data = await fetchAll();
-    const today = new Date().toISOString().slice(0, 10);
-    const todayData = data.filter(d => d.date === today && (!currentUser || d.user === currentUser));
-    if (!todayData.length) {
-      document.getElementById("sumText").textContent = "No data yet 💕";
-      return;
-    }
-
-    const d = todayData.find(e => e.section === "daily");
-    const h = todayData.find(e => e.section === "health");
-    const w = todayData.find(e => e.section === "water");
-    let text = "";
-
-    if (d) text += `Mood: ${d.mood || d.details?.mood || "—"} | `;
-    if (h) text += `Sleep: ${h.sleep ?? h.details?.sleep ?? "—"} hrs | `;
-    if (w) text += `Water: ${w.water ?? w.details?.water ?? "—"} cups`;
-
-    document.getElementById("sumText").textContent = text || "No data yet 💕";
-  } catch (e) {
-    console.error(e);
-    toast("Error loading summary 💔", false);
+    const today = new Date().toISOString().slice(0,10);
+    const todayData = data.filter(d=>d.date===today && (!currentUser || d.user===currentUser));
+    if(!todayData.length){ document.getElementById('sumText').textContent='No data yet 💕'; return; }
+    const w = todayData.find(d=>d.section==='water');
+    const h = todayData.find(d=>d.section==='health');
+    const d = todayData.find(d=>d.section==='daily');
+    let text = '';
+    if(d) text += `Mood: ${d.mood|| (d.details?.mood) || '—'} | `;
+    if(h) text += `Sleep: ${h.sleep ?? h.details?.sleep ?? '—'} hrs | `;
+    if(w) text += `Water: ${w.water ?? w.details?.water ?? '—'} cups`;
+    document.getElementById('sumText').textContent = text || 'No data yet 💕';
   } finally {
     setLoader(false);
   }
-}
-
-/* ---------- FLOATING HEARTS ---------- */
-const heartsContainer = document.getElementById("hearts");
-for (let i = 0; i < 25; i++) {
-  const heart = document.createElement("div");
-  heart.classList.add("heart");
-  heart.textContent = "💖";
-  heart.style.left = Math.random() * 100 + "%";
-  heart.style.animationDuration = 8 + Math.random() * 8 + "s";
-  heart.style.fontSize = 1 + Math.random() * 1.5 + "rem";
-  heartsContainer.appendChild(heart);
 }
 </script>
 </body>
