@@ -1,22 +1,72 @@
 {
-  "name": "Daily Tracker4U 💖",
-  "short_name": "Tracker4U",
-  "start_url": "./index.html",
+  "id": "/",
+  "name": "Daily Tracker 💖",
+  "short_name": "DailyTracker",
+  "description": "A beautiful personal daily tracker for notes, health, and water — made with love 💕.",
+  "start_url": "/index.html",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#130b1b",
-  "theme_color": "#ff9ecd",
-  "description": "A sweet daily tracker made with love 💕",
   "orientation": "portrait",
+  "background_color": "#fff0f5",
+  "theme_color": "#ff9aa2",
   "icons": [
     {
-      "src": "favicon.png",
-      "sizes": "192x192",
+      "src": "/icons/icon-72x72.png",
+      "sizes": "72x72",
       "type": "image/png"
     },
     {
-      "src": "favicon.png",
-      "sizes": "512x512",
+      "src": "/icons/icon-96x96.png",
+      "sizes": "96x96",
       "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/home-1080x1920.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/screenshots/tracker-1080x1920.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "categories": ["productivity", "health", "lifestyle"],
+  "shortcuts": [
+    {
+      "name": "Add Daily Note",
+      "short_name": "Note",
+      "description": "Quickly add a new daily note",
+      "url": "/index.html#daily-text",
+      "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Track Water",
+      "short_name": "Water",
+      "description": "Open the water tracker tab",
+      "url": "/index.html#water",
+      "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
     }
   ]
 }
